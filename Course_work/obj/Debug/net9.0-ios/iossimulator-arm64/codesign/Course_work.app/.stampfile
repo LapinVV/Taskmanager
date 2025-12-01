@@ -1,0 +1,1 @@
+-v --force --timestamp=none --sign - --entitlements /Users/vladislavlapin/Taskmanager/Course_work/obj/Debug/net9.0-ios/iossimulator-arm64/Entitlements.xcent /Users/vladislavlapin/Taskmanager/Course_work/bin/Debug/net9.0-ios/iossimulator-arm64/Course_work.app

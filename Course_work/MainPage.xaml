@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Course_work.MainPage"
+             BackgroundColor="White"
+             Title="Task Planner">
+
+    <VerticalStackLayout Padding="20" Spacing="16">
+        <Label Text="Task Planner" FontSize="22" HorizontalOptions="Center" />
+
+        <!-- Кнопки — у всех есть Clicked, соответствующие методам в MainPage.xaml.cs -->
+        <Button Text="All Tasks" HeightRequest="50" Clicked="OnAllTasksClicked"/>
+        <Button Text="Today's Tasks" HeightRequest="50" Clicked="OnTodayTasksClicked"/>
+        <Button Text="Completed Tasks" HeightRequest="50" Clicked="OnCompletedTasksClicked"/>
+        <Button Text="Add Task" HeightRequest="50" BackgroundColor="#4CAF50" TextColor="White" Clicked="OnAddTaskClicked"/>
+    </VerticalStackLayout>
+
+</ContentPage>
