@@ -1360,3 +1360,4 @@
 /Users/vladislavlapin/Taskmanager/Course_work/obj/Debug/net9.0-android/android/assets/arm64-v8a/Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
 /Users/vladislavlapin/Taskmanager/Course_work/obj/Debug/net9.0-android/android/assets/arm64-v8a/Microsoft.VisualStudio.DesignTools.TapContract.dll
 /Users/vladislavlapin/Taskmanager/Course_work/obj/Debug/net9.0-android/android/assets/arm64-v8a/Microsoft.VisualStudio.DesignTools.XamlTapContract.dll
+/Users/vladislavlapin/Taskmanager/Course_work/obj/Debug/net9.0-android/Course_work.sourcelink.json

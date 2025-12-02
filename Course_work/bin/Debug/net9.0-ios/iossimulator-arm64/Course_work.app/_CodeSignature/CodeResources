@@ -14,15 +14,19 @@
 		</data>
 		<key>Course_work.dll</key>
 		<data>
-		DUC01hcF8yTodYdHroj2Np7UrOU=
+		s0F02yNMPrAAdXfENtqHGuR4k0c=
 		</data>
 		<key>Course_work.pdb</key>
 		<data>
-		+h9SavCeaI0dmJvi1xC7uRjwDmg=
+		MUr/a1jgdqwnldPbT2EhiV2X8JQ=
 		</data>
 		<key>Info.plist</key>
 		<data>
 		bsh2UGquxfwUDzaNNoL8UPwxsow=
+		</data>
+		<key>MauiInfo.plist</key>
+		<data>
+		iEtuUGCV6JM3gxS/pO33swhmpp8=
 		</data>
 		<key>MauiSplash.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
@@ -76,6 +80,10 @@
 		<data>
 		xJQ07FlwxhATDvaGWcHLlmAmsjc=
 		</data>
+		<key>Microsoft.Maui.Controls.HotReload.Forms.dll</key>
+		<data>
+		9LoMTvcyN1kiYhByT2vfxt+SUj4=
+		</data>
 		<key>Microsoft.Maui.Controls.Xaml.dll</key>
 		<data>
 		Hf6P0UCpibuEdwhZTVGZNpITP/E=
@@ -103,6 +111,18 @@
 		<key>Microsoft.VisualBasic.dll</key>
 		<data>
 		jXXbUUuooEuweVYx+UIPF/Ehd90=
+		</data>
+		<key>Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll</key>
+		<data>
+		Cbc74J3yiS5zABQOxDq16niMnws=
+		</data>
+		<key>Microsoft.VisualStudio.DesignTools.TapContract.dll</key>
+		<data>
+		Rtw66+P4QAZgITGPF9MPCn0jhyw=
+		</data>
+		<key>Microsoft.VisualStudio.DesignTools.XamlTapContract.dll</key>
+		<data>
+		AaMFsTZonPpGggcPEZcYj6un1c4=
 		</data>
 		<key>Microsoft.Win32.Primitives.dll</key>
 		<data>
@@ -1041,14 +1061,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			D7VWm+mnrHLMt0mvn3IePPRP6hUBaORX2oYzsR1aews=
+			plchgBniAmbvWNESd6FM8b/3gnY4n9mBNSLcBd9jOfc=
 			</data>
 		</dict>
 		<key>Course_work.pdb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			eiX3rQcOjDBvIWGle26VKcO7lKH8ZOx3erAQgrvcdBI=
+			A1jeSEgbdwd/L18zmUCFv3ChaOFTi3dtQ/iPZV2iFoE=
+			</data>
+		</dict>
+		<key>MauiInfo.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			tx0KXqEC+DvcCGyogQTEQWHcCWJYYqH24NtPwhpQEjo=
 			</data>
 		</dict>
 		<key>MauiSplash.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
@@ -1142,6 +1169,13 @@
 			LpX4lYnrAPbD+mp4bIFn/jEPi4MuopGxI/SF2rI9+O4=
 			</data>
 		</dict>
+		<key>Microsoft.Maui.Controls.HotReload.Forms.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			VVeB2W4DanTiDPGY4wBgK9GQtvqTTxcT99ZQx5gLTtA=
+			</data>
+		</dict>
 		<key>Microsoft.Maui.Controls.Xaml.dll</key>
 		<dict>
 			<key>hash2</key>
@@ -1189,6 +1223,27 @@
 			<key>hash2</key>
 			<data>
 			CEjhWJS/9Hs8BJuJea5KrTv+wBeTiwFUBqXDr+ax5Xg=
+			</data>
+		</dict>
+		<key>Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			tkqrdKLsXpmR8Idl0bTuv3lN4EquILhUsflRwo+DQHc=
+			</data>
+		</dict>
+		<key>Microsoft.VisualStudio.DesignTools.TapContract.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			gY4UPEIGZ948PsFqIaLYPQAqoEyvMxxA04Gz2zwX5gY=
+			</data>
+		</dict>
+		<key>Microsoft.VisualStudio.DesignTools.XamlTapContract.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wElwgSmk/Wlh7i5gBBNJD7bS6y5kWjVWGBXkfQlywoo=
 			</data>
 		</dict>
 		<key>Microsoft.Win32.Primitives.dll</key>

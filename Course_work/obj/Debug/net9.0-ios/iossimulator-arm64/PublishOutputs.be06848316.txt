@@ -47,6 +47,10 @@
 /Users/vladislavlapin/Taskmanager/Course_work/bin/Debug/net9.0-ios/iossimulator-arm64/publish/../Course_work.app/Microsoft.Maui.dll
 /Users/vladislavlapin/Taskmanager/Course_work/bin/Debug/net9.0-ios/iossimulator-arm64/publish/../Course_work.app/Microsoft.Maui.Essentials.dll
 /Users/vladislavlapin/Taskmanager/Course_work/bin/Debug/net9.0-ios/iossimulator-arm64/publish/../Course_work.app/Microsoft.Maui.Graphics.dll
+/Users/vladislavlapin/Taskmanager/Course_work/bin/Debug/net9.0-ios/iossimulator-arm64/publish/../Course_work.app/Microsoft.Maui.Controls.HotReload.Forms.dll
+/Users/vladislavlapin/Taskmanager/Course_work/bin/Debug/net9.0-ios/iossimulator-arm64/publish/../Course_work.app/Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
+/Users/vladislavlapin/Taskmanager/Course_work/bin/Debug/net9.0-ios/iossimulator-arm64/publish/../Course_work.app/Microsoft.VisualStudio.DesignTools.TapContract.dll
+/Users/vladislavlapin/Taskmanager/Course_work/bin/Debug/net9.0-ios/iossimulator-arm64/publish/../Course_work.app/Microsoft.VisualStudio.DesignTools.XamlTapContract.dll
 /Users/vladislavlapin/Taskmanager/Course_work/bin/Debug/net9.0-ios/iossimulator-arm64/publish/../Course_work.app/Course_work.dll
 /Users/vladislavlapin/Taskmanager/Course_work/bin/Debug/net9.0-ios/iossimulator-arm64/publish/../Course_work.app/Microsoft.CSharp.dll
 /Users/vladislavlapin/Taskmanager/Course_work/bin/Debug/net9.0-ios/iossimulator-arm64/publish/../Course_work.app/Microsoft.VisualBasic.Core.dll

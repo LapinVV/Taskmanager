@@ -1,18 +1,90 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Course_work.MainPage"
-             BackgroundColor="White"
-             Title="Task Planner">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Course_work.MainPage"
+    BackgroundColor="#f9f9f9">
 
-    <VerticalStackLayout Padding="20" Spacing="16">
-        <Label Text="Task Planner" FontSize="22" HorizontalOptions="Center" />
+    <VerticalStackLayout Padding="20" Spacing="20">
 
-        <!-- Кнопки — у всех есть Clicked, соответствующие методам в MainPage.xaml.cs -->
-        <Button Text="All Tasks" HeightRequest="50" Clicked="OnAllTasksClicked"/>
-        <Button Text="Today's Tasks" HeightRequest="50" Clicked="OnTodayTasksClicked"/>
-        <Button Text="Completed Tasks" HeightRequest="50" Clicked="OnCompletedTasksClicked"/>
-        <Button Text="Add Task" HeightRequest="50" BackgroundColor="#4CAF50" TextColor="White" Clicked="OnAddTaskClicked"/>
+        <Grid ColumnSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>  
+                <ColumnDefinition Width="*"/>     
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    BackgroundColor="#ffbd59"
+                    HeightRequest="150"
+                    WidthRequest="150"
+                    StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="30"/>
+                </Border.StrokeShape>
+
+                <Button Text="ALL"
+                        BackgroundColor="Transparent"
+                        TextColor="White"
+                        FontSize="24"
+                        Clicked="OnAllTasksClicked"/>
+            </Border>
+
+            <Border Grid.Column="1"
+                    BackgroundColor="#d55043"
+                    HeightRequest="150"
+                    StrokeThickness="0"
+                    HorizontalOptions="Fill">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="30"/>
+                </Border.StrokeShape>
+
+                <Button Text="Now"
+                        BackgroundColor="Transparent"
+                        TextColor="White"
+                        FontSize="24"
+                        Clicked="OnTodayTasksClicked"/>
+            </Border>
+        </Grid>
+
+        <Grid ColumnSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>    
+                <ColumnDefinition Width="Auto"/>  
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    BackgroundColor="#0097b2"
+                    HeightRequest="150"
+                    StrokeThickness="0"
+                    HorizontalOptions="Fill">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="30"/>
+                </Border.StrokeShape>
+
+                <Button Text="Completed"
+                        BackgroundColor="Transparent"
+                        TextColor="White"
+                        FontSize="24"
+                        Clicked="OnCompletedTasksClicked"/>
+            </Border>
+
+            <Border Grid.Column="1"
+                    BackgroundColor="#468966"
+                    HeightRequest="150"
+                    WidthRequest="150"
+                    StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="30"/>
+                </Border.StrokeShape>
+
+                <Button Text="+"
+                        BackgroundColor="Transparent"
+                        TextColor="White"
+                        FontSize="36"
+                        Clicked="OnAddTaskClicked"/>
+            </Border>
+        </Grid>
+
     </VerticalStackLayout>
 
 </ContentPage>
