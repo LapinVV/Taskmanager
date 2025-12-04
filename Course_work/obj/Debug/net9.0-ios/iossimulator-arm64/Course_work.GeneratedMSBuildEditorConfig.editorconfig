@@ -18,6 +18,12 @@ build_property.EnableGeneratedComInterfaceComImportInterop =
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
+[/Users/vladislavlapin/Taskmanager/Course_work/AddTaskPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Course_work.AddTaskPage.xaml
+build_metadata.AdditionalFiles.TargetPath = AddTaskPage.xaml
+build_metadata.AdditionalFiles.RelativePath = AddTaskPage.xaml
+
 [/Users/vladislavlapin/Taskmanager/Course_work/App.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Course_work.App.xaml

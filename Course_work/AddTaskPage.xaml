@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Course_work.AddTaskPage"
+             BackgroundColor="#FFFFFF"
+             Padding="20">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Верхняя панель -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Padding="0,10">
+
+            <Label Text="Add New Task"
+                   FontSize="28"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   TextColor="Black"/>
+
+            <Button Grid.Column="1"
+                    BackgroundColor="Transparent"
+                    Padding="0"
+                    Clicked="OnCloseTapped">
+                <Button.ImageSource>
+                    <FontImageSource Glyph="✕"
+                                     Color="#777777"
+                                     Size="28"/>
+                </Button.ImageSource>
+            </Button>
+
+        </Grid>
+
+        <!-- Содержимое -->
+        <ScrollView Grid.Row="1">
+
+            <VerticalStackLayout Spacing="18">
+
+                <!-- Поле Названия -->
+<Border BackgroundColor="#ffffff"
+        StrokeThickness="0"
+        StrokeShape="RoundRectangle 8"
+        HeightRequest="45"
+        Padding="0"
+        Margin="0">
+
+    <Entry x:Name="TitleEntry"
+           Placeholder="Enter task title"
+           FontSize="20"
+           BackgroundColor="Transparent"
+           TextColor="Black"
+           Margin="12,0"/> <!-- маленький внутренний отступ -->
+</Border>
+
+
+<!-- Поле Описания -->
+<Border BackgroundColor="#f5f5f5"
+        StrokeThickness="0"
+        StrokeShape="RoundRectangle 8"
+        HeightRequest="130"
+        Padding="0"
+        Margin="0">
+
+    <Editor x:Name="DescriptionEditor"
+            Placeholder="Describe your task..."
+            FontSize="18"
+            BackgroundColor="Transparent"
+            TextColor="Black"
+            Margin="12,5"
+            AutoSize="TextChanges"/>
+</Border>
+                <!-- Кнопки 3 в ряд -->
+                <Grid ColumnSpacing="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Text="Date"
+                            Grid.Column="0"
+                            BackgroundColor="#ffbd59"
+                            TextColor="White"
+                            CornerRadius="15"
+                            HeightRequest="55"/>
+
+                    <Button Text="Priority"
+                            Grid.Column="1"
+                            BackgroundColor="#d55043"
+                            TextColor="White"
+                            CornerRadius="15"
+                            HeightRequest="55"/>
+
+                    <Button Text="Reminder"
+                            Grid.Column="2"
+                            BackgroundColor="#0097b2"
+                            TextColor="White"
+                            CornerRadius="15"
+                            HeightRequest="55"/>
+                </Grid>
+
+                <!-- Кнопка Добавления -->
+                <Button Text="Add Task"
+                        BackgroundColor="#468966"
+                        TextColor="White"
+                        FontSize="22"
+                        CornerRadius="20"
+                        HeightRequest="48"
+                        Margin="0,10,0,0"
+                        Clicked="OnAddTaskConfirm"/>
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+    </Grid>
+
+</ContentPage>

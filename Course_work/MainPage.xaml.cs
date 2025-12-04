@@ -51,10 +51,8 @@ public partial class MainPage : ContentPage
         });
     }
 
-    private async void OnAddTaskClicked(object sender, EventArgs e)
+     private async void OnAddTaskClicked(object sender, EventArgs e)
     {
-        await DisplayAlert("Add Task",
-            "Popup for adding a task will appear here later.",
-            "OK");
+        await Navigation.PushAsync(new AddTaskPage());
     }
 }

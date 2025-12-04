@@ -1,7 +1,4 @@
-﻿using Microsoft.Maui;
-using Microsoft.Maui.Controls;
-
-namespace Course_work;
+﻿namespace Course_work;
 
 public partial class App : Application
 {
