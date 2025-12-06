@@ -1,103 +1,93 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Course_work.AddTaskPage"
-             BackgroundColor="#FFFFFF"
-             Padding="20">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Course_work.AddTaskPage"
+    BackgroundColor="#FFFFFF"
+    Padding="0">
 
     <Grid RowDefinitions="Auto,*">
 
-        <!-- Верхняя панель -->
+        <!-- ====== Верхняя панель (Row 0) ====== -->
         <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Padding="0,10">
-
             <Label Text="Add New Task"
                    FontSize="28"
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
                    TextColor="Black"/>
-
             <Button Grid.Column="1"
                     BackgroundColor="Transparent"
                     Padding="0"
                     Clicked="OnCloseTapped">
                 <Button.ImageSource>
-                    <FontImageSource Glyph="✕"
-                                     Color="#777777"
-                                     Size="28"/>
+                    <FontImageSource Glyph="✕" Color="#777777" Size="28"/>
                 </Button.ImageSource>
             </Button>
-
         </Grid>
 
-        <!-- Содержимое -->
+        <!-- ====== Контент (Row 1) ====== -->
         <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="18" Padding="20">
 
-            <VerticalStackLayout Spacing="18">
+                <!-- Title -->
+                <Border BackgroundColor="#ffffff"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 8"
+                        HeightRequest="45">
+                    <Entry x:Name="TitleEntry"
+                           Placeholder="Enter task title"
+                           FontSize="20"
+                           BackgroundColor="Transparent"
+                           TextColor="Black"
+                           Margin="12,0" />
+                </Border>
 
-                <!-- Поле Названия -->
-<Border BackgroundColor="#ffffff"
-        StrokeThickness="0"
-        StrokeShape="RoundRectangle 8"
-        HeightRequest="45"
-        Padding="0"
-        Margin="0">
+                <!-- Description -->
+                <Border BackgroundColor="#f5f5f5"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 8"
+                        HeightRequest="130">
+                    <Editor x:Name="DescriptionEditor"
+                            Placeholder="Describe your task..."
+                            FontSize="18"
+                            BackgroundColor="Transparent"
+                            TextColor="Black"
+                            Margin="12,5"
+                            AutoSize="TextChanges" />
+                </Border>
 
-    <Entry x:Name="TitleEntry"
-           Placeholder="Enter task title"
-           FontSize="20"
-           BackgroundColor="Transparent"
-           TextColor="Black"
-           Margin="12,0"/> <!-- маленький внутренний отступ -->
-</Border>
-
-
-<!-- Поле Описания -->
-<Border BackgroundColor="#f5f5f5"
-        StrokeThickness="0"
-        StrokeShape="RoundRectangle 8"
-        HeightRequest="130"
-        Padding="0"
-        Margin="0">
-
-    <Editor x:Name="DescriptionEditor"
-            Placeholder="Describe your task..."
-            FontSize="18"
-            BackgroundColor="Transparent"
-            TextColor="Black"
-            Margin="12,5"
-            AutoSize="TextChanges"/>
-</Border>
-                <!-- Кнопки 3 в ряд -->
+                <!-- Buttons row -->
                 <Grid ColumnSpacing="15">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <Button Text="Date"
                             Grid.Column="0"
-                            BackgroundColor="#ffbd59"
-                            TextColor="White"
-                            CornerRadius="15"
-                            HeightRequest="55"/>
-
-                    <Button Text="Priority"
-                            Grid.Column="1"
                             BackgroundColor="#d55043"
                             TextColor="White"
                             CornerRadius="15"
-                            HeightRequest="55"/>
+                            HeightRequest="55" />
+
+                    <Button Text="Priority"
+                            Grid.Column="1"
+                            BackgroundColor="#ffbd59"
+                            TextColor="White"
+                            CornerRadius="15"
+                            HeightRequest="55"
+                            Clicked="OnPriorityClicked" />
 
                     <Button Text="Reminder"
                             Grid.Column="2"
                             BackgroundColor="#0097b2"
                             TextColor="White"
                             CornerRadius="15"
-                            HeightRequest="55"/>
+                            HeightRequest="55" />
                 </Grid>
 
-                <!-- Кнопка Добавления -->
+                <!-- Add button -->
                 <Button Text="Add Task"
                         BackgroundColor="#468966"
                         TextColor="White"
@@ -105,11 +95,84 @@
                         CornerRadius="20"
                         HeightRequest="48"
                         Margin="0,10,0,0"
-                        Clicked="OnAddTaskConfirm"/>
-            </VerticalStackLayout>
+                        Clicked="OnAddTaskConfirm" />
 
+            </VerticalStackLayout>
         </ScrollView>
 
-    </Grid>
+        <!-- ================= POPUP OVERLAY ================= -->
+        <Grid Grid.RowSpan="2"
+              x:Name="PopupOverlay"
+              IsVisible="False"
+              BackgroundColor="#80000000"
+              HorizontalOptions="Fill"
+              VerticalOptions="Fill"
+              Padding="0"
+              ZIndex="50">
 
+            <Grid HorizontalOptions="Center"
+                  VerticalOptions="Center"
+                  WidthRequest="300">
+
+                <Border x:Name="PriorityPopup"
+                        BackgroundColor="White"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="18">
+
+                    <VerticalStackLayout Spacing="14">
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Select Priority"
+                                   FontSize="20"
+                                   VerticalOptions="Center"/>
+                            <Button Grid.Column="1"
+                                    BackgroundColor="Transparent"
+                                    Padding="0"
+                                    Clicked="OnClosePriorityPopup">
+                                <Button.ImageSource>
+                                    <FontImageSource Glyph="✕" Color="#444" Size="22"/>
+                                </Button.ImageSource>
+                            </Button>
+                        </Grid>
+
+                        <Button Text="Important &amp; Urgent"
+                                BackgroundColor="#d55043"
+                                TextColor="White"
+                                CornerRadius="10"
+                                HeightRequest="45"
+                                Clicked="OnPrioritySelected"
+                                CommandParameter="HighUrgent"/>
+
+                        <Button Text="Important &amp; Not Urgent"
+                                BackgroundColor="#FFEC8728"
+                                TextColor="White"
+                                CornerRadius="10"
+                                HeightRequest="45"
+                                Clicked="OnPrioritySelected"
+                                CommandParameter="High"/>
+
+                        <Button Text="Not Important &amp; Urgent"
+                                BackgroundColor="#FFBD59"
+                                TextColor="Black"
+                                CornerRadius="10"
+                                HeightRequest="45"
+                                Clicked="OnPrioritySelected"
+                                CommandParameter="Urgent"/>
+
+                        <Button Text="Not Important &amp; Not Urgent"
+                                BackgroundColor="#cccccc"
+                                TextColor="Black"
+                                CornerRadius="10"
+                                HeightRequest="45"
+                                Clicked="OnPrioritySelected"
+                                CommandParameter="Low"/>
+
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+        </Grid>
+        <!-- ================= END POPUP ================= -->
+
+    </Grid>
 </ContentPage>

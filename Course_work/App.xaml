@@ -1,10 +1,47 @@
-﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Course_work"
+             xmlns:converters="clr-namespace:Course_work.Converters"
              x:Class="Course_work.App">
+
     <Application.Resources>
         <ResourceDictionary>
+
+            <!-- Стили -->
+            <Color x:Key="PrimaryColor">#4A7856</Color>
+            <Color x:Key="DangerColor">#CC3333</Color>
+            <Color x:Key="SuccessColor">#4CAF50</Color>
+            <Color x:Key="DarkGray">#626262</Color>
+
+            <Style x:Key="TaskTitleStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="Black"/>
+            </Style>
+
+            <Style x:Key="TaskDescriptionStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="TextColor" Value="{StaticResource DarkGray}"/>
+            </Style>
+
+            <!-- Тост стиль -->
+            <Style x:Key="ToastStyle" TargetType="Border">
+                <Setter Property="StrokeShape">
+                    <Setter.Value>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BackgroundColor" Value="#333333"/>
+                <Setter Property="Padding" Value="12,6"/>
+                <Setter Property="StrokeThickness" Value="0"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="End"/>
+                <Setter Property="Margin" Value="20"/>
+                <Setter Property="Opacity" Value="0"/>
+            </Style>
+
+            <!-- Конвертер -->
+            <converters:PriorityToColorConverter x:Key="PriorityToColorConverter"/>
 
         </ResourceDictionary>
     </Application.Resources>

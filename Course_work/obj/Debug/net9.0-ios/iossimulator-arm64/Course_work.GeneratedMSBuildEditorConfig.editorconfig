@@ -42,6 +42,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = Course_work.MainPage.xaml
 build_metadata.AdditionalFiles.TargetPath = MainPage.xaml
 build_metadata.AdditionalFiles.RelativePath = MainPage.xaml
 
+[/Users/vladislavlapin/Taskmanager/Course_work/Pages/AllTasksPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Course_work.Pages.AllTasksPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages/AllTasksPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages/AllTasksPage.xaml
+
 [/Users/vladislavlapin/Taskmanager/Course_work/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Course_work.Resources.Styles.Colors.xaml

@@ -9,19 +9,10 @@ public partial class MainPage : ContentPage
         InitializeComponent();
     }
 
-    private async void OnAllTasksClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new ContentPage
-        {
-            Title = "All Tasks",
-            Content = new Label
-            {
-                Text = "All Tasks page (placeholder)",
-                VerticalOptions = LayoutOptions.Center,
-                HorizontalOptions = LayoutOptions.Center
-            }
-        });
-    }
+   private async void OnAllTasksClicked(object sender, EventArgs e)
+{
+    await Navigation.PushAsync(new Pages.AllTasksPage());
+}
 
     private async void OnTodayTasksClicked(object sender, EventArgs e)
     {
@@ -55,4 +46,6 @@ public partial class MainPage : ContentPage
     {
         await Navigation.PushAsync(new AddTaskPage());
     }
+
+    
 }
