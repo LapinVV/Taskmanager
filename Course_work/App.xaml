@@ -40,9 +40,12 @@
                 <Setter Property="Opacity" Value="0"/>
             </Style>
 
-            <!-- Конвертер -->
-            <converters:PriorityToColorConverter x:Key="PriorityToColorConverter"/>
+            <!-- Конвертеры -->
+            <converters:NullToBoolConverter x:Key="NullToBoolConverter" />
+            <converters:BoolToAccentConverter x:Key="BoolToAccentConverter" />
+            <converters:PriorityToColorConverter x:Key="PriorityToColorConverter" />
 
         </ResourceDictionary>
     </Application.Resources>
+
 </Application>

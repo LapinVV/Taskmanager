@@ -15,7 +15,7 @@ namespace Course_work.Converters
             return p switch
 {
     "HighUrgent" => Color.FromArgb("#d55043"),   // красный
-    "High"       => Color.FromArgb("#FFEC8728"),   // оранжевый
+    "High"       => Color.FromArgb("#FFF09515"),   // оранжевый
     "Urgent"     => Color.FromArgb("#FFBD59"),   // жёлтый
     "Low"        => Color.FromArgb("#BBBBBB"),   // серый
     _            => Colors.Transparent
