@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Course_work.Pages.NowTasksPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:conv="clr-namespace:Course_work.Converters"
+    xmlns:models="clr-namespace:Course_work.Models"
+    Title="Сегодняшние задачи"
+    BackgroundColor="White">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:NullToBoolConverter x:Key="NullToBoolConverter" />
+            <conv:PriorityToColorConverter x:Key="PriorityToColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <VerticalStackLayout Padding="15">
+
+        <!-- СПИСОК ЗАДАЧ -->
+        <CollectionView x:Name="TasksList"
+                        ItemsSource="{Binding TodayTasks}"
+                        ItemsLayout="VerticalList"
+                        SelectionMode="None">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:TodoItem">
+
+                    <Grid Padding="10"
+                          Margin="0,0,0,10"
+                          ColumnDefinitions="40, *">
+
+                        <!-- КРУЖОК -->
+                        <Ellipse
+                            WidthRequest="28"
+                            HeightRequest="28"
+                            Stroke="{Binding Priority, Converter={StaticResource PriorityToColorConverter}}"
+                            StrokeThickness="3"
+                            Fill="Transparent">
+
+                            <Ellipse.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={x:Reference TasksList}, Path=BindingContext.CompleteTaskCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Ellipse.GestureRecognizers>
+
+                        </Ellipse>
+
+
+                        <!-- ТЕКСТ ЗАДАЧИ -->
+                        <VerticalStackLayout Grid.Column="1"
+                                             Spacing="4"
+                                             Padding="12,0">
+
+                            <Label Text="{Binding Title}"
+                                   FontSize="20"
+                                   TextColor="#111" />
+
+                            <Label Text="{Binding Description}"
+                                   FontSize="14"
+                                   TextColor="#777777" />
+
+                            <!-- ВРЕМЯ – ТОЛЬКО ЕСЛИ УКАЗАНО -->
+                            <Label Text="{Binding Time, StringFormat='{0:hh\\:mm}'}"
+                                   FontSize="13"
+                                   TextColor="#5A5A5A"
+                                   IsVisible="{Binding Time, Converter={StaticResource NullToBoolConverter}}" />
+
+                        </VerticalStackLayout>
+
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </VerticalStackLayout>
+
+</ContentPage>

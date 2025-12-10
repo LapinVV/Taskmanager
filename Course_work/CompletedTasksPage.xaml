@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:Course_work.Models"
+    x:Class="Course_work.Pages.CompletedTasksPage"
+    Title="Выполненные задачи"
+    BackgroundColor="White">
+
+    <CollectionView x:Name="CompletedList"
+                    ItemsLayout="VerticalList"
+                    SelectionMode="None"
+                    Margin="10">
+
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="models:TodoItem">
+
+                <Grid Padding="10" ColumnDefinitions="40, *" RowDefinitions="Auto">
+
+                    <!-- Зеленый круг выполненной задачи -->
+                    <Ellipse WidthRequest="28"
+                             HeightRequest="28"
+                             Stroke="#468966"
+                             StrokeThickness="3"
+                             Fill="#468966" />
+
+                    <VerticalStackLayout Grid.Column="1" Spacing="4" Padding="12,0">
+
+                        <Label Text="{Binding Title}"
+                               FontSize="20"
+                               TextColor="#111" />
+
+                        <Label Text="{Binding Description}"
+                               FontSize="14"
+                               TextColor="#777777" />
+
+                        <Label Text="{Binding DateDisplay}"
+                               FontSize="13"
+                               HorizontalOptions="Start"
+                               TextColor="#468966"
+                               IsVisible="{Binding DateDisplay}" />
+
+                    </VerticalStackLayout>
+                </Grid>
+
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+
+    </CollectionView>
+
+</ContentPage>

@@ -24,7 +24,6 @@
                 <Setter Property="TextColor" Value="{StaticResource DarkGray}"/>
             </Style>
 
-            <!-- Тост стиль -->
             <Style x:Key="ToastStyle" TargetType="Border">
                 <Setter Property="StrokeShape">
                     <Setter.Value>

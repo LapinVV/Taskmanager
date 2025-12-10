@@ -6,6 +6,52 @@
     BackgroundColor="#FFFFFF"
     Padding="0">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+           <Style x:Key="TitleEntryBorderStyle" TargetType="Border">
+    <Setter Property="Stroke" Value="#CCCCCC" />
+    <Setter Property="StrokeThickness" Value="2" />
+
+    <Style.Triggers>
+
+        <DataTrigger TargetType="Border"
+                     Binding="{Binding SelectedPriority}"
+                     Value="HighUrgent">
+            <Setter Property="Stroke" Value="#d55043" />
+        </DataTrigger>
+
+        <DataTrigger TargetType="Border"
+                     Binding="{Binding SelectedPriority}"
+                     Value="High">
+            <Setter Property="Stroke" Value="#FFF09515" />
+        </DataTrigger>
+
+        <DataTrigger TargetType="Border"
+                     Binding="{Binding SelectedPriority}"
+                     Value="Urgent">
+            <Setter Property="Stroke" Value="#FFBD59" />
+        </DataTrigger>
+
+        <DataTrigger TargetType="Border"
+                     Binding="{Binding SelectedPriority}"
+                     Value="Low">
+            <Setter Property="Stroke" Value="#999999" />
+        </DataTrigger>
+
+        <DataTrigger TargetType="Border"
+                     Binding="{Binding SelectedPriority}"
+                     Value="{x:Null}">
+            <Setter Property="Stroke" Value="#CCCCCC" />
+        </DataTrigger>
+
+    </Style.Triggers>
+</Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
     <Grid RowDefinitions="Auto,*">
 
         <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Padding="0,10">
@@ -27,17 +73,21 @@
         <ScrollView Grid.Row="1">
             <VerticalStackLayout Spacing="12" Padding="20">
 
-                <Border BackgroundColor="#ffffff"
-                        StrokeThickness="0"
-                        StrokeShape="RoundRectangle 8"
-                        HeightRequest="45">
-                    <Entry x:Name="TitleEntry"
-                           Placeholder="Enter task title"
-                           FontSize="20"
-                           BackgroundColor="Transparent"
-                           TextColor="Black"
-                           Margin="12,0"/>
-                </Border>
+     <Border BackgroundColor="#ffffff"
+        Style="{StaticResource TitleEntryBorderStyle}"
+        StrokeShape="RoundRectangle 8"
+        Padding="0"
+        HeightRequest="55">
+
+    <Entry x:Name="TitleEntry"
+           Placeholder="Enter task title"
+           FontSize="20"
+           BackgroundColor="Transparent"
+           TextColor="Black"
+           HorizontalOptions="FillAndExpand"
+           VerticalOptions="Center"
+           Margin="12,0"/>
+</Border>
 
                 <Label x:Name="PickedDateLabel"
                        Text=""
@@ -227,16 +277,17 @@
                                 HeightRequest="45"
                                 Clicked="OnSelectNoDate"/>
 
-                      <DatePicker x:Name="CustomDatePicker"
-                        DateSelected="OnCustomDatePicked"
-                        HorizontalOptions="Center"
-                        WidthRequest="220"/>
+                        <DatePicker x:Name="CustomDatePicker"
+                                    DateSelected="OnCustomDatePicked"
+                                    HorizontalOptions="Center"
+                                    WidthRequest="220"/>
 
-                      <TimePicker x:Name="CustomTimePicker"
-                       Format="HH:mm"
-                       PropertyChanged="OnCustomTimePropertyChanged"
-                       HorizontalOptions="Center"
-                     WidthRequest="220"/>
+                        <TimePicker x:Name="CustomTimePicker"
+                                    Format="HH:mm"
+                                    PropertyChanged="OnCustomTimePropertyChanged"
+                                    HorizontalOptions="Center"
+                                    WidthRequest="220"/>
+
                     </VerticalStackLayout>
                 </Border>
 

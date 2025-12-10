@@ -5,15 +5,29 @@ using Course_work.Models;
 
 namespace Course_work;
 
-public partial class AddTaskPage : ContentPage
+public partial class AddTaskPage : ContentPage, INotifyPropertyChanged
 {
     private string selectedPriority = "Low";
+    public string SelectedPriority
+    {
+        get => selectedPriority;
+        set
+        {
+            if (selectedPriority != value)
+            {
+                selectedPriority = value;
+                OnPropertyChanged(nameof(SelectedPriority));
+            }
+        }
+    }
+
     private DateTime? selectedDate = null;
     private TimeSpan? selectedTime = null;
 
     public AddTaskPage()
     {
         InitializeComponent();
+        BindingContext = this;
     }
 
     private async void OnCloseTapped(object? sender, EventArgs e)
@@ -37,7 +51,7 @@ public partial class AddTaskPage : ContentPage
     private void OnPrioritySelected(object? sender, EventArgs e)
     {
         if (sender is Button btn && btn.CommandParameter is string param)
-            selectedPriority = param;
+            SelectedPriority = param;
 
         PriorityPopup.IsVisible = false;
         PopupOverlay.IsVisible = false;
@@ -99,6 +113,7 @@ public partial class AddTaskPage : ContentPage
         if (sender is TimePicker tp)
         {
             selectedTime = tp.Time;
+
             if (selectedDate != null)
                 ApplySelectedDate();
         }
@@ -113,14 +128,17 @@ public partial class AddTaskPage : ContentPage
         }
 
         var ru = new CultureInfo("ru-RU");
-        string mon = selectedDate.Value.ToString("MMM", ru);
-        mon = mon.ToLowerInvariant().TrimEnd('.').Substring(0, Math.Min(3, mon.Length)) + ".";
-
         string result;
+
         if (selectedTime != null)
-            result = $"Дата: {selectedDate.Value.Day} {mon} {selectedTime.Value:hh\\:mm}";
+        {
+            var dt = selectedDate.Value.Date + selectedTime.Value;
+            result = "Дата: " + dt.ToString("d MMMM HH:mm yyyy", ru);
+        }
         else
-            result = $"Дата: {selectedDate.Value.Day} {mon}";
+        {
+            result = "Дата: " + selectedDate.Value.ToString("d MMMM yyyy", ru);
+        }
 
         PickedDateLabel.Text = result;
         PickedDateLabel.IsVisible = true;
@@ -140,31 +158,19 @@ public partial class AddTaskPage : ContentPage
             return;
         }
 
-        string? display = null;
-
-        if (selectedDate != null)
-        {
-            var ru = new CultureInfo("ru-RU");
-            string mon = selectedDate.Value.ToString("MMM", ru);
-            mon = mon.ToLowerInvariant().TrimEnd('.').Substring(0, Math.Min(3, mon.Length)) + ".";
-
-            if (selectedTime != null)
-                display = $"Дата: {selectedDate.Value.Day} {mon} {selectedTime.Value:hh\\:mm}";
-            else
-                display = $"Дата: {selectedDate.Value.Day} {mon}";
-        }
-
+        // Создаём задачу
         var item = new TodoItem
         {
             Title = titleText,
             Description = desc,
-            Priority = selectedPriority,
+            Priority = SelectedPriority,
             Date = selectedDate,
-            Time = selectedTime,
-            DateDisplay = display
+            Time = selectedTime
         };
 
-        AppData.Tasks.Add(item);
+        item.UpdateDateDisplay();
+
+        AppData.ActiveTasks.Add(item);
 
         await DisplayAlert("Готово", "Задача добавлена", "OK");
         await Navigation.PopAsync();

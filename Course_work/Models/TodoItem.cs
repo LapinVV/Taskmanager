@@ -27,15 +27,20 @@ namespace Course_work.Models
             }
 
             var ru = new CultureInfo("ru-RU");
-            string mon = Date.Value.ToString("MMM", ru);
-            mon = mon.ToLowerInvariant().TrimEnd('.');
+
+            string mon = Date.Value.ToString("MMM", ru)
+                                   .ToLowerInvariant()
+                                   .TrimEnd('.');
+
             if (mon.Length >= 3)
                 mon = mon.Substring(0, 3) + ".";
 
             if (Time is not null)
-                DateDisplay = $"Дата: {Date.Value.Day} {mon} {Time.Value:hh\\:mm}";
+                DateDisplay =
+                    $"Дата: {Date.Value.Day} {mon} {Time.Value:hh\\:mm} {Date.Value:yyyy}";
             else
-                DateDisplay = $"Дата: {Date.Value.Day} {mon}";
+                DateDisplay =
+                    $"Дата: {Date.Value.Day} {mon} {Date.Value:yyyy}";
 
             if (Date.Value.Date == DateTime.Today)
                 DateColor = "#468966";

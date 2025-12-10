@@ -11,17 +11,14 @@ namespace Course_work.Converters
             if (value is null)
                 return false;
 
-            string? s = value as string;
-
-            if (string.IsNullOrWhiteSpace(s))
-                return false;
+            if (value is string s)
+                return !string.IsNullOrWhiteSpace(s);
 
             return true;
         }
 
         public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            // Возвращаем DO NOTHING — больше НИКАКИХ ошибок nullable
             return Binding.DoNothing;
         }
     }

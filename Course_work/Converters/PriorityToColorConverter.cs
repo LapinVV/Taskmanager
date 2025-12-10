@@ -24,7 +24,6 @@ namespace Course_work.Converters
 
         public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo? culture)
         {
-            // Обратное преобразование не используется в UI — возвращаем значение по умолчанию
             return "Low";
         }
     }

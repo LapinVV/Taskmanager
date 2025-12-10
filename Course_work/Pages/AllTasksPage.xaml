@@ -23,15 +23,29 @@
 
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="models:TodoItem">
-                <Grid Padding="10" ColumnDefinitions="40, *" RowDefinitions="Auto">
-                    
-                   <Ellipse WidthRequest="28"
-                     HeightRequest="28"
-                     Stroke="{Binding Priority, Converter={StaticResource PriorityToColorConverter}}"
-                     StrokeThickness="3"
-                    Fill="Transparent"/>
+                <Grid Padding="10"
+                      ColumnDefinitions="40, *"
+                      RowDefinitions="Auto">
 
-                    <VerticalStackLayout Grid.Column="1" Spacing="4" Padding="12,0">
+                    <!-- КРУЖОК ДЛЯ ОТМЕТКИ ЗАДАЧИ -->
+                    <Ellipse WidthRequest="28"
+                             HeightRequest="28"
+                             Stroke="{Binding Priority, Converter={StaticResource PriorityToColorConverter}}"
+                             StrokeThickness="3"
+                             Fill="Transparent">
+
+                        <Ellipse.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={x:Reference TasksList}, Path=BindingContext.CompleteTaskCommand}"
+                                CommandParameter="{Binding .}" />
+                        </Ellipse.GestureRecognizers>
+
+                    </Ellipse>
+
+                    <!-- ИНФОРМАЦИЯ О ЗАДАЧЕ -->
+                    <VerticalStackLayout Grid.Column="1"
+                                         Spacing="4"
+                                         Padding="12,0">
 
                         <Label Text="{Binding Title}"
                                FontSize="20"
@@ -48,6 +62,7 @@
                                IsVisible="{Binding DateDisplay, Converter={StaticResource NullToBoolConverter}}" />
 
                     </VerticalStackLayout>
+
                 </Grid>
             </DataTemplate>
         </CollectionView.ItemTemplate>

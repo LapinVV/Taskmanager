@@ -10,7 +10,7 @@ namespace Course_work.Converters
         {
             if (value is bool b && b)
             {
-                return Color.FromArgb("#4CAF50"); // зелёный
+                return Color.FromArgb("#4CAF50"); 
             }
 
             return Colors.Transparent;
