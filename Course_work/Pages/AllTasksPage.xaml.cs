@@ -1,7 +1,9 @@
 using Course_work.Models;
+using Course_work.Pages.Popups;
 using System.Windows.Input;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Controls.Shapes;
+using Microsoft.Maui.Controls;
 using System.Threading.Tasks;
 
 namespace Course_work.Pages
@@ -9,12 +11,27 @@ namespace Course_work.Pages
     public partial class AllTasksPage : ContentPage
     {
         public ICommand CompleteTaskCommand { get; }
+        public ICommand OpenTaskCommand { get; }
 
         public AllTasksPage()
         {
             InitializeComponent();
-            CompleteTaskCommand = new Command<TodoItem>(OnTaskCompleteRequest);
+
+            CompleteTaskCommand = new Command<TodoItem>(ExecuteCompleteTaskCommand);
+            OpenTaskCommand = new Command<TodoItem>(ExecuteOpenTaskPopup);
+
             BindingContext = this;
+
+            try
+            {
+                if (this.FindByName("TaskPopup") is ViewTaskPopup popup)
+                {
+                    popup.CompleteRequested += OnPopupCompleteRequested;
+                    popup.DeleteRequested += OnPopupDeleteRequested;
+                    popup.EditRequested += OnPopupEditRequested;
+                }
+            }
+            catch { }
         }
 
         protected override void OnAppearing()
@@ -45,10 +62,7 @@ namespace Course_work.Pages
                 Stroke = Colors.LightGray,
                 StrokeThickness = 1,
                 BackgroundColor = Color.FromRgb(248, 248, 248),
-
-                // Скругление — правильный вариант
                 StrokeShape = new RoundRectangle { CornerRadius = 14 },
-
                 Shadow = new Shadow
                 {
                     Brush = Colors.Black,
@@ -56,14 +70,12 @@ namespace Course_work.Pages
                     Radius = 12,
                     Opacity = 0.25f
                 },
-
                 Padding = 20,
                 WidthRequest = 300,
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center
             };
 
-            // Внутренний контент окна
             alertBox.Content = new VerticalStackLayout
             {
                 Spacing = 14,
@@ -98,7 +110,6 @@ namespace Course_work.Pages
             overlay.Children.Add(alertBox);
 
             var oldContent = this.Content;
-
             var wrapper = new Grid();
             if (oldContent != null)
                 wrapper.Children.Add(oldContent);
@@ -120,7 +131,7 @@ namespace Course_work.Pages
             return cancelled;
         }
 
-        private async void OnTaskCompleteRequest(TodoItem item)
+        private async void ExecuteCompleteTaskCommand(TodoItem item)
         {
             if (item == null)
                 return;
@@ -139,6 +150,53 @@ namespace Course_work.Pages
             item.IsCompleted = true;
 
             RefreshTasks();
+        }
+
+        private void ExecuteOpenTaskPopup(TodoItem item)
+        {
+            if (item == null)
+                return;
+
+            if (this.FindByName("TaskPopup") is ViewTaskPopup popup)
+                popup.Show(item);
+        }
+
+        private async void OnPopupCompleteRequested(object? sender, TodoItem item)
+        {
+            if (item == null)
+                return;
+
+            bool cancelled = await ShowAutoClosingAlert(
+                "Задача выполнена",
+                $"Отменить выполнение задачи \"{item.Title}\"?",
+                2000
+            );
+
+            if (cancelled)
+                return;
+
+            AppData.ActiveTasks.Remove(item);
+            AppData.CompletedTasks.Add(item);
+            item.IsCompleted = true;
+
+            RefreshTasks();
+        }
+
+        private void OnPopupDeleteRequested(object? sender, TodoItem item)
+        {
+            if (item == null)
+                return;
+
+            AppData.ActiveTasks.Remove(item);
+            RefreshTasks();
+        }
+
+        private void OnPopupEditRequested(object? sender, TodoItem item)
+        {
+            if (item == null)
+                return;
+
+            DisplayAlert("Редактирование", $"Открываем редактор задачи: {item.Title}", "OK");
         }
     }
 }

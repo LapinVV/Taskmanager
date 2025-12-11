@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:conv="clr-namespace:Course_work.Converters"
     xmlns:models="clr-namespace:Course_work.Models"
+    xmlns:pop="clr-namespace:Course_work.Pages.Popups"
     x:Class="Course_work.Pages.AllTasksPage"
     Title="Все задачи"
     BackgroundColor="White">
@@ -16,57 +17,76 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <CollectionView x:Name="TasksList"
-                    ItemsLayout="VerticalList"
-                    SelectionMode="None"
-                    Margin="10">
+    <Grid>
 
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="models:TodoItem">
-                <Grid Padding="10"
-                      ColumnDefinitions="40, *"
-                      RowDefinitions="Auto">
+        <!-- СПИСОК ЗАДАЧ -->
+        <CollectionView x:Name="TasksList"
+                        ItemsLayout="VerticalList"
+                        SelectionMode="None"
+                        Margin="10">
 
-                    <!-- КРУЖОК ДЛЯ ОТМЕТКИ ЗАДАЧИ -->
-                    <Ellipse WidthRequest="28"
-                             HeightRequest="28"
-                             Stroke="{Binding Priority, Converter={StaticResource PriorityToColorConverter}}"
-                             StrokeThickness="3"
-                             Fill="Transparent">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:TodoItem">
 
-                        <Ellipse.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Command="{Binding Source={x:Reference TasksList}, Path=BindingContext.CompleteTaskCommand}"
-                                CommandParameter="{Binding .}" />
-                        </Ellipse.GestureRecognizers>
+                    <Grid Padding="10"
+                          ColumnDefinitions="40, *"
+                          RowDefinitions="Auto">
 
-                    </Ellipse>
+                        <!-- КРУЖОК ДЛЯ ОТМЕТКИ ЗАДАЧИ -->
+                        <Ellipse WidthRequest="28"
+                                 HeightRequest="28"
+                                 Stroke="{Binding Priority, Converter={StaticResource PriorityToColorConverter}}"
+                                 StrokeThickness="3"
+                                 Fill="Transparent">
 
-                    <!-- ИНФОРМАЦИЯ О ЗАДАЧЕ -->
-                    <VerticalStackLayout Grid.Column="1"
-                                         Spacing="4"
-                                         Padding="12,0">
+                            <Ellipse.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={x:Reference TasksList}, Path=BindingContext.CompleteTaskCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Ellipse.GestureRecognizers>
 
-                        <Label Text="{Binding Title}"
-                               FontSize="20"
-                               TextColor="#111" />
+                        </Ellipse>
 
-                        <Label Text="{Binding Description}"
-                               FontSize="14"
-                               TextColor="#777777" />
 
-                        <Label Text="{Binding DateDisplay}"
-                               FontSize="13"
-                               HorizontalOptions="Start"
-                               TextColor="{Binding DateColor}"
-                               IsVisible="{Binding DateDisplay, Converter={StaticResource NullToBoolConverter}}" />
+                        <!-- ЗОНА КЛИКА ДЛЯ ОТКРЫТИЯ POPUP -->
+                        <Grid Grid.Column="1">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={x:Reference TasksList}, Path=BindingContext.OpenTaskCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Grid.GestureRecognizers>
 
-                    </VerticalStackLayout>
+                            <VerticalStackLayout Spacing="4" Padding="12,0">
 
-                </Grid>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
+                                <Label Text="{Binding Title}"
+                                       FontSize="20"
+                                       TextColor="#111" />
 
-    </CollectionView>
+                                <Label Text="{Binding Description}"
+                                       FontSize="14"
+                                       TextColor="#777777" />
+
+                                <Label Text="{Binding DateDisplay}"
+                                       FontSize="13"
+                                       HorizontalOptions="Start"
+                                       TextColor="{Binding DateColor}"
+                                       IsVisible="{Binding DateDisplay, Converter={StaticResource NullToBoolConverter}}" />
+
+                            </VerticalStackLayout>
+
+                        </Grid>
+
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+
+        <!-- ВСПЛЫВАЮЩЕЕ ОКНО ПРОСМОТРА ЗАДАЧИ -->
+        <pop:ViewTaskPopup x:Name="TaskPopup"
+                           IsVisible="False"/>
+
+    </Grid>
 
 </ContentPage>

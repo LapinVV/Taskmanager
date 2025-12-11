@@ -6,6 +6,7 @@ using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Controls.Shapes;
 using Course_work.Models;
+using Course_work.Pages.Popups;
 
 namespace Course_work.Pages
 {
@@ -15,14 +16,28 @@ namespace Course_work.Pages
             = new ObservableCollection<TodoItem>();
 
         public Command<TodoItem> CompleteTaskCommand { get; }
+        public Command<TodoItem> ShowTaskCommand { get; }
 
         public NowTasksPage()
         {
             InitializeComponent();
 
-            CompleteTaskCommand = new Command<TodoItem>(OnTaskCompleteRequest);
+            ShowTaskCommand = new Command<TodoItem>(ExecuteShowTaskPopup);
+            CompleteTaskCommand = new Command<TodoItem>(ExecuteCompleteTaskCommand);
 
             BindingContext = this;
+
+            try
+            {
+                if (this.FindByName("TaskPopup") is ViewTaskPopup popup)
+                {
+                    popup.CompleteRequested += OnPopupCompleteRequested;
+                    popup.DeleteRequested += OnPopupDeleteRequested;
+                    popup.EditRequested += OnPopupEditRequested;
+                    popup.Closed += OnPopupClosed;
+                }
+            }
+            catch{ }
         }
 
         protected override void OnAppearing()
@@ -45,6 +60,78 @@ namespace Course_work.Pages
                 TodayTasks.Add(task);
         }
 
+        private void ExecuteShowTaskPopup(TodoItem item)
+        {
+            if (item == null)
+                return;
+
+            var popup = this.FindByName("TaskPopup") as ViewTaskPopup;
+            popup?.Show(item);
+        }
+
+        private async void ExecuteCompleteTaskCommand(TodoItem item)
+        {
+            if (item == null)
+                return;
+
+            bool cancelled = await ShowAutoClosingAlert(
+                "Задача выполнена",
+                $"Отменить выполнение задачи \"{item.Title}\"?",
+                2000
+            );
+
+            if (cancelled)
+                return;
+
+            AppData.ActiveTasks.Remove(item);
+            AppData.CompletedTasks.Add(item);
+            item.IsCompleted = true;
+
+            RefreshTasks();
+        }
+
+        private async void OnPopupCompleteRequested(object? sender, TodoItem item)
+        {
+            if (item == null)
+                return;
+
+            bool cancelled = await ShowAutoClosingAlert(
+                "Задача выполнена",
+                $"Отменить выполнение задачи \"{item.Title}\"?",
+                2000
+            );
+
+            if (cancelled)
+                return;
+
+            AppData.ActiveTasks.Remove(item);
+            AppData.CompletedTasks.Add(item);
+            item.IsCompleted = true;
+
+            RefreshTasks();
+        }
+
+        private void OnPopupDeleteRequested(object? sender, TodoItem item)
+        {
+            if (item == null)
+                return;
+
+            AppData.ActiveTasks.Remove(item);
+            RefreshTasks();
+        }
+
+        private void OnPopupEditRequested(object? sender, TodoItem item)
+        {
+            if (item == null)
+                return;
+
+            DisplayAlert("Редактирование", $"Открыть редактирование для: {item.Title}", "OK");
+        }
+
+        private void OnPopupClosed(object? sender, EventArgs e)
+        {
+        }
+
         private async Task<bool> ShowAutoClosingAlert(string title, string message, int timeoutMs = 2000)
         {
             var tcs = new TaskCompletionSource<bool>();
@@ -62,7 +149,6 @@ namespace Course_work.Pages
                 StrokeThickness = 1,
                 BackgroundColor = Color.FromRgb(248, 248, 248),
                 StrokeShape = new RoundRectangle { CornerRadius = 14 },
-
                 Shadow = new Shadow
                 {
                     Brush = Colors.Black,
@@ -70,7 +156,6 @@ namespace Course_work.Pages
                     Radius = 12,
                     Opacity = 0.25f
                 },
-
                 Padding = 20,
                 WidthRequest = 300,
                 HorizontalOptions = LayoutOptions.Center,
@@ -131,29 +216,6 @@ namespace Course_work.Pages
             this.Content = oldContent;
 
             return cancelled;
-        }
-
-
-        private async void OnTaskCompleteRequest(TodoItem item)
-        {
-            if (item == null)
-                return;
-
-            bool cancelled = await ShowAutoClosingAlert(
-                "Задача выполнена",
-                $"Отменить выполнение задачи \"{item.Title}\"?",
-                2000
-            );
-
-            if (cancelled)
-                return;
-
-            // Перемещение задачи
-            AppData.ActiveTasks.Remove(item);
-            AppData.CompletedTasks.Add(item);
-            item.IsCompleted = true;
-
-            RefreshTasks();
         }
     }
 }
