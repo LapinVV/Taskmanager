@@ -55,7 +55,7 @@
     <Grid RowDefinitions="Auto,*">
 
         <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Padding="0,10">
-            <Label Text="Add New Task"
+            <Label Text="Добавить задачу"
                    FontSize="28"
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
@@ -63,6 +63,7 @@
             <Button Grid.Column="1"
                     BackgroundColor="Transparent"
                     Padding="0"
+                    Margin="10,0,10,0"
                     Clicked="OnCloseTapped">
                 <Button.ImageSource>
                     <FontImageSource Glyph="✕" Color="#777777" Size="28"/>
@@ -80,7 +81,7 @@
         HeightRequest="55">
 
     <Entry x:Name="TitleEntry"
-           Placeholder="Enter task title"
+           Placeholder="Введите название:"
            FontSize="20"
            BackgroundColor="Transparent"
            TextColor="Black"
@@ -102,7 +103,7 @@
                         StrokeShape="RoundRectangle 8"
                         HeightRequest="130">
                     <Editor x:Name="DescriptionEditor"
-                            Placeholder="Describe your task..."
+                            Placeholder="Добавьте описание..."
                             FontSize="18"
                             BackgroundColor="Transparent"
                             TextColor="Black"
@@ -110,23 +111,23 @@
                             AutoSize="TextChanges"/>
                 </Border>
 
-                <Grid ColumnSpacing="15">
+                <Grid ColumnSpacing="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Button Text="Date"
+                    <Button Text="Время"
                             Grid.Column="0"
                             x:Name="DateButton"
                             BackgroundColor="#ffbd59"
                             TextColor="White"
                             CornerRadius="15"
-                            HeightRequest="55"
+                            HeightRequest="50"
                             Clicked="OnDateClicked"/>
 
-                    <Button Text="Priority"
+                    <Button Text="Приоритет"
                             Grid.Column="1"
                             x:Name="PriorityButton"
                             BackgroundColor="#d55043"
@@ -135,7 +136,7 @@
                             HeightRequest="55"
                             Clicked="OnPriorityClicked"/>
 
-                    <Button Text="Reminder"
+                    <Button Text="Уведомления"
                             Grid.Column="2"
                             BackgroundColor="#0097b2"
                             TextColor="White"
@@ -143,7 +144,7 @@
                             HeightRequest="55"/>
                 </Grid>
 
-                <Button Text="Add Task"
+                <Button Text="Добавить"
                         BackgroundColor="#468966"
                         TextColor="White"
                         FontSize="22"
@@ -191,7 +192,7 @@
                             </Button>
                         </Grid>
 
-                        <Button Text="Important &amp; Urgent"
+                        <Button Text="Важно и срочно"
                                 BackgroundColor="#d55043"
                                 TextColor="White"
                                 CornerRadius="10"
@@ -199,7 +200,7 @@
                                 Clicked="OnPrioritySelected"
                                 CommandParameter="HighUrgent"/>
 
-                        <Button Text="Important &amp; Not Urgent"
+                        <Button Text="Важно и не срочно"
                                 BackgroundColor="#FFF09515"
                                 TextColor="White"
                                 CornerRadius="10"
@@ -207,15 +208,15 @@
                                 Clicked="OnPrioritySelected"
                                 CommandParameter="High"/>
 
-                        <Button Text="Not Important &amp; Urgent"
-                                BackgroundColor="#FFBD59"
+                        <Button Text="Не важно и срочно"
+                                BackgroundColor="#FFFCCC3C"
                                 TextColor="White"
                                 CornerRadius="10"
                                 HeightRequest="45"
                                 Clicked="OnPrioritySelected"
                                 CommandParameter="Urgent"/>
 
-                        <Button Text="Not Important &amp; Not Urgent"
+                        <Button Text="Не важно и не срочно"
                                 BackgroundColor="#cccccc"
                                 TextColor="Black"
                                 CornerRadius="10"

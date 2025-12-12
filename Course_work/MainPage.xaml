@@ -22,7 +22,7 @@
                     <RoundRectangle CornerRadius="30"/>
                 </Border.StrokeShape>
 
-                <Button Text="ALL"
+                <Button Text="Все"
                         BackgroundColor="Transparent"
                         TextColor="White"
                         FontSize="24"
@@ -38,7 +38,7 @@
                     <RoundRectangle CornerRadius="30"/>
                 </Border.StrokeShape>
 
-                <Button Text="Now"
+                <Button Text="Сегодня"
                         BackgroundColor="Transparent"
                         TextColor="White"
                         FontSize="24"
@@ -61,7 +61,7 @@
                     <RoundRectangle CornerRadius="30"/>
                 </Border.StrokeShape>
 
-                <Button Text="Completed"
+                <Button Text="Выполненные"
                         BackgroundColor="Transparent"
                         TextColor="White"
                         FontSize="24"

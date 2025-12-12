@@ -21,25 +21,25 @@
 
                 <!-- Заголовок окна -->
                 <Grid ColumnDefinitions="*,Auto">
-                    <Label Text="Просмотр задачи"
-                           FontSize="22"
-                           FontAttributes="Bold"
-                           TextColor="#111" />
+    <Label Text="Просмотр задачи"
+           Grid.Column="0"
+           FontSize="23"
+           FontAttributes="Bold"
+           HorizontalOptions="Center"
+           VerticalOptions="Center"
+           TextColor="#111" />
 
-                    <ImageButton
-                        Source="close.png"
-                        WidthRequest="28"
-                        BackgroundColor="Transparent"
-                        Clicked="OnCloseClicked"/>
-                </Grid>
+    <Button Grid.Column="1"
+            BackgroundColor="Transparent"
+            Padding="0"
+            Clicked="OnCloseClicked">
+        <Button.ImageSource>
+            <FontImageSource Glyph="✕" Color="#777777" Size="24"/>
+        </Button.ImageSource>
+    </Button>
+</Grid>
 
-                <!-- Заголовок задачи (readonly) -->
-                <Label x:Name="TitleLabel"
-                       FontSize="20"
-                       TextColor="#222"
-                       FontAttributes="Bold"/>
 
-                <!-- Поле ввода (редактируемый режим в будущем) -->
                 <Border x:Name="TitleBorder"
                         Stroke="#CCCCCC"
                         StrokeThickness="2"
@@ -47,14 +47,9 @@
                         Padding="10">
 
                     <Label x:Name="TitleReadonly"
-                           FontSize="15"
+                           FontSize="17"
                            TextColor="#111"/>
                 </Border>
-
-                <!-- Описание -->
-                <Label x:Name="DescriptionLabel"
-                       FontSize="15"
-                       TextColor="#444"/>
 
                 <!-- Дата -->
                 <Label x:Name="DateTimeLabel"
@@ -62,20 +57,26 @@
                        TextColor="#444"
                        HorizontalOptions="Center"/>
 
-                <!-- КНОПКИ -->
-                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                <!-- Описание -->
+                <Label x:Name="DescriptionLabel"
+                       FontSize="17"
+                       TextColor="#444"/>
 
-                    <Button Text="Удалить"
+
+                <!-- КНОПКИ -->
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="7">
+
+                    <Button Text="   Удалить   "
                             Grid.Column="0"
-                            FontSize="13"
+                            FontSize="14"
                             CornerRadius="10"
                             BackgroundColor="#D9534F"
                             TextColor="White"
                             Clicked="OnDeleteClicked"/>
 
-                    <Button Text="Редактировать"
+                    <Button Text=" Изменить "
                             Grid.Column="1"
-                            FontSize="13"
+                            FontSize="14"
                             CornerRadius="10"
                             BackgroundColor="#F0AD4E"
                             TextColor="White"
@@ -83,9 +84,9 @@
 
                     <Button Text="Выполнить"
                             Grid.Column="2"
-                            FontSize="13"
+                            FontSize="14"
                             CornerRadius="10"
-                            BackgroundColor="#5CB85C"
+                            BackgroundColor="#468966"
                             TextColor="White"
                             Clicked="OnCompleteClicked"/>
 
@@ -95,4 +96,4 @@
         </Border>
     </Grid>
 
-</ContentView>
+</ContentView> 

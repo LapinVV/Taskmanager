@@ -24,7 +24,6 @@ namespace Course_work.Pages.Popups
             BindingContext = item;
 
             // Заголовок
-            TitleLabel.Text = item.Title ?? string.Empty;
             TitleReadonly.Text = item.Title ?? string.Empty;
 
             // Описание
