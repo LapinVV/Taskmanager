@@ -13,9 +13,30 @@ namespace Course_work.Models
 
         public DateTime? Date { get; set; }
         public TimeSpan? Time { get; set; }
+        
+        // 🔔 ДОБАВЬТЕ ЭТО СВОЙСТВО ДЛЯ НАПОМИНАНИЙ
+        public int? ReminderMinutes { get; set; }
 
         public string? DateDisplay { get; set; }
         public string DateColor { get; set; } = "Red";
+        
+        // 🔔 (ОПЦИОНАЛЬНО) Можно добавить свойство для отображения
+        public string ReminderDisplayText
+        {
+            get
+            {
+                if (!ReminderMinutes.HasValue) return "Нет";
+                
+                int minutes = ReminderMinutes.Value;
+                return minutes switch
+                {
+                    0 => "Во время начала",
+                    < 60 => $"За {minutes} мин",
+                    < 1440 => $"За {minutes / 60} час",
+                    _ => $"За {minutes / 1440} дн"
+                };
+            }
+        }
 
         public void UpdateDateDisplay()
         {

@@ -9,44 +9,44 @@
     <ContentPage.Resources>
         <ResourceDictionary>
 
-           <Style x:Key="TitleEntryBorderStyle" TargetType="Border">
-    <Setter Property="Stroke" Value="#CCCCCC" />
-    <Setter Property="StrokeThickness" Value="2" />
+            <Style x:Key="TitleEntryBorderStyle" TargetType="Border">
+                <Setter Property="Stroke" Value="#CCCCCC" />
+                <Setter Property="StrokeThickness" Value="2" />
 
-    <Style.Triggers>
+                <Style.Triggers>
 
-        <DataTrigger TargetType="Border"
-                     Binding="{Binding SelectedPriority}"
-                     Value="HighUrgent">
-            <Setter Property="Stroke" Value="#d55043" />
-        </DataTrigger>
+                    <DataTrigger TargetType="Border"
+                                 Binding="{Binding SelectedPriority}"
+                                 Value="HighUrgent">
+                        <Setter Property="Stroke" Value="#d55043" />
+                    </DataTrigger>
 
-        <DataTrigger TargetType="Border"
-                     Binding="{Binding SelectedPriority}"
-                     Value="High">
-            <Setter Property="Stroke" Value="#FFF09515" />
-        </DataTrigger>
+                    <DataTrigger TargetType="Border"
+                                 Binding="{Binding SelectedPriority}"
+                                 Value="High">
+                        <Setter Property="Stroke" Value="#FFF09515" />
+                    </DataTrigger>
 
-        <DataTrigger TargetType="Border"
-                     Binding="{Binding SelectedPriority}"
-                     Value="Urgent">
-            <Setter Property="Stroke" Value="#FFBD59" />
-        </DataTrigger>
+                    <DataTrigger TargetType="Border"
+                                 Binding="{Binding SelectedPriority}"
+                                 Value="Urgent">
+                        <Setter Property="Stroke" Value="#FFBD59" />
+                    </DataTrigger>
 
-        <DataTrigger TargetType="Border"
-                     Binding="{Binding SelectedPriority}"
-                     Value="Low">
-            <Setter Property="Stroke" Value="#999999" />
-        </DataTrigger>
+                    <DataTrigger TargetType="Border"
+                                 Binding="{Binding SelectedPriority}"
+                                 Value="Low">
+                        <Setter Property="Stroke" Value="#999999" />
+                    </DataTrigger>
 
-        <DataTrigger TargetType="Border"
-                     Binding="{Binding SelectedPriority}"
-                     Value="{x:Null}">
-            <Setter Property="Stroke" Value="#CCCCCC" />
-        </DataTrigger>
+                    <DataTrigger TargetType="Border"
+                                 Binding="{Binding SelectedPriority}"
+                                 Value="{x:Null}">
+                        <Setter Property="Stroke" Value="#CCCCCC" />
+                    </DataTrigger>
 
-    </Style.Triggers>
-</Style>
+                </Style.Triggers>
+            </Style>
 
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -54,6 +54,7 @@
 
     <Grid RowDefinitions="Auto,*">
 
+        <!-- Header -->
         <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Padding="0,10">
             <Label Text="Добавить задачу"
                    FontSize="28"
@@ -71,24 +72,25 @@
             </Button>
         </Grid>
 
+        <!-- Scroll Content -->
         <ScrollView Grid.Row="1">
             <VerticalStackLayout Spacing="12" Padding="20">
 
-     <Border BackgroundColor="#ffffff"
-        Style="{StaticResource TitleEntryBorderStyle}"
-        StrokeShape="RoundRectangle 8"
-        Padding="0"
-        HeightRequest="55">
+                <Border BackgroundColor="#ffffff"
+                        Style="{StaticResource TitleEntryBorderStyle}"
+                        StrokeShape="RoundRectangle 8"
+                        Padding="0"
+                        HeightRequest="55">
 
-    <Entry x:Name="TitleEntry"
-           Placeholder="Введите название:"
-           FontSize="20"
-           BackgroundColor="Transparent"
-           TextColor="Black"
-           HorizontalOptions="FillAndExpand"
-           VerticalOptions="Center"
-           Margin="12,0"/>
-</Border>
+                    <Entry x:Name="TitleEntry"
+                           Placeholder="Введите название:"
+                           FontSize="20"
+                           BackgroundColor="Transparent"
+                           TextColor="Black"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="Center"
+                           Margin="12,0"/>
+                </Border>
 
                 <Label x:Name="PickedDateLabel"
                        Text=""
@@ -111,6 +113,7 @@
                             AutoSize="TextChanges"/>
                 </Border>
 
+                <!-- Buttons Row -->
                 <Grid ColumnSpacing="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -138,10 +141,12 @@
 
                     <Button Text="Уведомления"
                             Grid.Column="2"
+                            x:Name="ReminderButton"
                             BackgroundColor="#0097b2"
                             TextColor="White"
                             CornerRadius="15"
-                            HeightRequest="55"/>
+                            HeightRequest="55"
+                            Clicked="OnReminderClicked"/>
                 </Grid>
 
                 <Button Text="Добавить"
@@ -155,6 +160,7 @@
             </VerticalStackLayout>
         </ScrollView>
 
+        <!-- POPUP OVERLAY -->
         <Grid Grid.RowSpan="2"
               x:Name="PopupOverlay"
               IsVisible="False"
@@ -168,6 +174,7 @@
                   VerticalOptions="Center"
                   WidthRequest="320">
 
+                <!-- PRIORITY POPUP -->
                 <Border x:Name="PriorityPopup"
                         BackgroundColor="White"
                         StrokeShape="RoundRectangle 18"
@@ -226,6 +233,7 @@
                     </VerticalStackLayout>
                 </Border>
 
+                <!-- DATE POPUP -->
                 <Border x:Name="DatePopupOverlay"
                         BackgroundColor="White"
                         StrokeShape="RoundRectangle 18"
@@ -289,6 +297,205 @@
                                     HorizontalOptions="Center"
                                     WidthRequest="220"/>
 
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- 🔔 REMINDER POPUP -->
+                <Border x:Name="ReminderPopup"
+                        BackgroundColor="White"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="18"
+                        IsVisible="False">
+
+                    <VerticalStackLayout Spacing="14">
+
+                        <!-- Заголовок -->
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Напоминания"
+                                   FontSize="20"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalOptions="Center" />
+
+                            <Button Grid.Column="1"
+                                    BackgroundColor="Transparent"
+                                    Padding="0"
+                                    Clicked="OnCloseReminderPopup">
+                                <Button.ImageSource>
+                                    <FontImageSource Glyph="✕" Color="#444" Size="22"/>
+                                </Button.ImageSource>
+                            </Button>
+                        </Grid>
+
+                        <Border BackgroundColor="#f5f5f5"
+                                StrokeShape="RoundRectangle 8"
+                                Padding="12"
+                                Margin="0,0,0,10">
+                            <Label x:Name="EventDateTimeLabel"
+                                   FontSize="16"
+                                   TextColor="#333"
+                                   HorizontalOptions="Center"
+                                   Text="Событие: --.--.---- в --:--"/>
+                        </Border>
+
+                        <VerticalStackLayout Spacing="8">
+                            <!-- Не напоминать -->
+                            <Button Text="Не напоминать"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="None"/>
+
+                            <!-- Во время начала -->
+                            <Button Text="Во время начала"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="0"/>
+
+                            <!-- Стандартные интервалы -->
+                            <Button Text="За 5 минут до события"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="5"/>
+
+                            <Button Text="За 10 минут до события"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="10"/>
+
+                            <Button Text="За 15 минут до события"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="15"/>
+
+                            <Button Text="За 30 минут до события"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="30"/>
+
+                            <Button Text="За 1 час до события"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="60"/>
+
+                            <Button Text="За 1 день до события"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="1440"/>
+
+                            <Button Text="За 2 дня до события"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="2880"/>
+
+                            <Button Text="За 1 неделю до события"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="10080"/>
+
+                            <!-- Кнопка настроить -->
+                            <Button Text="Настроить"
+                                    BackgroundColor="#0097b2"
+                                    TextColor="White"
+                                    CornerRadius="10"
+                                    HeightRequest="45"
+                                    Margin="0,10,0,0"
+                                    Clicked="OnOpenCustomReminder"/>
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- 🛠 CUSTOM REMINDER POPUP -->
+                <Border x:Name="CustomReminderPopup"
+                        BackgroundColor="White"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="18"
+                        IsVisible="False"
+                        WidthRequest="300">
+
+                    <VerticalStackLayout Spacing="14">
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Настроить уведомление"
+                                   FontSize="20"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalOptions="Center" />
+
+                            <Button Grid.Column="1"
+                                    BackgroundColor="Transparent"
+                                    Padding="0"
+                                    Clicked="OnCloseCustomReminderPopup">
+                                <Button.ImageSource>
+                                    <FontImageSource Glyph="✕" Color="#444" Size="22"/>
+                                </Button.ImageSource>
+                            </Button>
+                        </Grid>
+
+                        <Border BackgroundColor="#f5f5f5"
+                                StrokeShape="RoundRectangle 8"
+                                Padding="12">
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="За сколько до события?"
+                                       FontSize="14"
+                                       TextColor="#333"/>
+
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                    <Entry x:Name="CustomMinutesEntry"
+                                           Placeholder="Минуты"
+                                           Keyboard="Numeric"
+                                           FontSize="16"
+                                           BackgroundColor="White"/>
+
+                                    <!-- ⭐ ИСПРАВЛЕННАЯ СТРОКА: добавлен SelectedIndexChanged -->
+                                    <Picker x:Name="TimeUnitPicker"
+                                            Grid.Column="1"
+                                            WidthRequest="100"
+                                            SelectedIndexChanged="OnTimeUnitChanged">
+                                        <Picker.Items>
+                                            <x:String>минут</x:String>
+                                            <x:String>часов</x:String>
+                                            <x:String>дней</x:String>
+                                        </Picker.Items>
+                                    </Picker>
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Button Text="Сохранить"
+                                BackgroundColor="#0097b2"
+                                TextColor="White"
+                                CornerRadius="10"
+                                HeightRequest="45"
+                                Clicked="OnConfirmCustomReminder"/>
                     </VerticalStackLayout>
                 </Border>
 
