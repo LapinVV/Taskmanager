@@ -313,3 +313,7 @@
 /Users/vladislavlapin/Taskmanager/Course_work/obj/Debug/net9.0-ios/iossimulator-arm64/resizetizer/r/close_icon@3x.png
 /Users/vladislavlapin/Taskmanager/Course_work/obj/Debug/net9.0-ios/iossimulator-arm64/resizetizer/r/close_icon@2x.png
 /Users/vladislavlapin/Taskmanager/Course_work/obj/Debug/net9.0-ios/iossimulator-arm64/resizetizer/r/close_icon.png
+/Users/vladislavlapin/Taskmanager/Course_work/obj/Debug/net9.0-ios/iossimulator-arm64/resourcestamps/Microsoft.Maui.Controls.HotReload.Forms.stamp
+/Users/vladislavlapin/Taskmanager/Course_work/obj/Debug/net9.0-ios/iossimulator-arm64/resourcestamps/Microsoft.VisualStudio.DesignTools.MobileTapContracts.stamp
+/Users/vladislavlapin/Taskmanager/Course_work/obj/Debug/net9.0-ios/iossimulator-arm64/resourcestamps/Microsoft.VisualStudio.DesignTools.TapContract.stamp
+/Users/vladislavlapin/Taskmanager/Course_work/obj/Debug/net9.0-ios/iossimulator-arm64/resourcestamps/Microsoft.VisualStudio.DesignTools.XamlTapContract.stamp

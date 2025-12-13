@@ -23,10 +23,8 @@ namespace Course_work.Pages.Popups
 
             BindingContext = item;
 
-            // Заголовок
             TitleReadonly.Text = item.Title ?? string.Empty;
 
-            // Описание
             if (string.IsNullOrWhiteSpace(item.Description))
             {
                 DescriptionLabel.IsVisible = false;
@@ -38,7 +36,6 @@ namespace Course_work.Pages.Popups
                 DescriptionLabel.Text = item.Description;
             }
 
-            // Форматированная дата
             if (item.Date.HasValue)
             {
                 string date = item.Date.Value.ToString("d MMMM yyyy");
@@ -55,7 +52,10 @@ namespace Course_work.Pages.Popups
                 DateTimeLabel.Text = string.Empty;
             }
 
-            // Цвет рамки по приоритету
+            // НОВЫЙ КОД: Устанавливаем текст напоминания
+            ReminderLabel.Text = item.ReminderDisplayText;
+            ReminderLabel.IsVisible = true;
+
             var priority = item.Priority ?? "Low";
             var color = Colors.Transparent;
 
@@ -86,12 +86,12 @@ namespace Course_work.Pages.Popups
             Closed?.Invoke(this, EventArgs.Empty);
         }
 
-        private void OnCloseClicked(object? sender, EventArgs e)
+        private void OnCloseClicked(object sender, EventArgs e)
         {
             Hide();
         }
 
-        private void OnCompleteClicked(object? sender, EventArgs e)
+        private void OnCompleteClicked(object sender, EventArgs e)
         {
             if (BindingContext is TodoItem item)
                 CompleteRequested?.Invoke(this, item);
@@ -99,7 +99,7 @@ namespace Course_work.Pages.Popups
             Hide();
         }
 
-        private void OnDeleteClicked(object? sender, EventArgs e)
+        private void OnDeleteClicked(object sender, EventArgs e)
         {
             if (BindingContext is TodoItem item)
                 DeleteRequested?.Invoke(this, item);
@@ -107,7 +107,7 @@ namespace Course_work.Pages.Popups
             Hide();
         }
 
-        private void OnEditClicked(object? sender, EventArgs e)
+        private void OnEditClicked(object sender, EventArgs e)
         {
             if (BindingContext is TodoItem item)
                 EditRequested?.Invoke(this, item);

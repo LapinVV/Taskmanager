@@ -21,31 +21,29 @@
 
                 <!-- Заголовок окна -->
                 <Grid ColumnDefinitions="*,Auto">
-    <Label Text="Просмотр задачи"
-           Grid.Column="0"
-           FontSize="23"
-           FontAttributes="Bold"
-           HorizontalOptions="Center"
-           VerticalOptions="Center"
-           TextColor="#111" />
+                    <Label Text="Просмотр задачи"
+                           Grid.Column="0"
+                           FontSize="23"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           TextColor="#111" />
 
-    <Button Grid.Column="1"
-            BackgroundColor="Transparent"
-            Padding="0"
-            Clicked="OnCloseClicked">
-        <Button.ImageSource>
-            <FontImageSource Glyph="✕" Color="#777777" Size="24"/>
-        </Button.ImageSource>
-    </Button>
-</Grid>
-
+                    <Button Grid.Column="1"
+                            BackgroundColor="Transparent"
+                            Padding="0"
+                            Clicked="OnCloseClicked">
+                        <Button.ImageSource>
+                            <FontImageSource Glyph="✕" Color="#777777" Size="24"/>
+                        </Button.ImageSource>
+                    </Button>
+                </Grid>
 
                 <Border x:Name="TitleBorder"
                         Stroke="#CCCCCC"
                         StrokeThickness="2"
                         StrokeShape="RoundRectangle 12"
                         Padding="10">
-
                     <Label x:Name="TitleReadonly"
                            FontSize="17"
                            TextColor="#111"/>
@@ -57,15 +55,20 @@
                        TextColor="#444"
                        HorizontalOptions="Center"/>
 
+                <!-- НАПОМИНАНИЕ -->
+                <Label x:Name="ReminderLabel"
+                       FontSize="15"
+                       TextColor="#444"
+                       HorizontalOptions="Center"
+                       Margin="0,5,0,15"/>
+
                 <!-- Описание -->
                 <Label x:Name="DescriptionLabel"
                        FontSize="17"
                        TextColor="#444"/>
 
-
                 <!-- КНОПКИ -->
                 <Grid ColumnDefinitions="*,*,*" ColumnSpacing="7">
-
                     <Button Text="   Удалить   "
                             Grid.Column="0"
                             FontSize="14"
@@ -89,11 +92,8 @@
                             BackgroundColor="#468966"
                             TextColor="White"
                             Clicked="OnCompleteClicked"/>
-
                 </Grid>
-
             </VerticalStackLayout>
         </Border>
     </Grid>
-
-</ContentView> 
+</ContentView>
