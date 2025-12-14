@@ -16,7 +16,7 @@ namespace Course_work.Converters
 {
     "HighUrgent" => Color.FromArgb("#d55043"),   // красный
     "High"       => Color.FromArgb("#FFF09515"),   // оранжевый
-    "Urgent"     => Color.FromArgb("#ecbf2aff"),   // жёлтый
+    "Urgent"     => Color.FromArgb("#FFBD59"),   // жёлтый
     "Low"        => Color.FromArgb("#BBBBBB"),   // серый
     _            => Colors.Transparent
 };

@@ -3,49 +3,63 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:models="clr-namespace:Course_work.Models"
+    xmlns:popups="clr-namespace:Course_work.Pages.Popups"
     x:Class="Course_work.Pages.CompletedTasksPage"
     Title="Выполненные задачи"
     BackgroundColor="White">
 
-    <CollectionView x:Name="CompletedList"
-                    ItemsLayout="VerticalList"
-                    SelectionMode="None"
-                    Margin="10">
+    <Grid>
+        <CollectionView x:Name="CompletedList"
+                        ItemsLayout="VerticalList"
+                        SelectionMode="None"
+                        Margin="10">
 
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="models:TodoItem">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:TodoItem">
 
-                <Grid Padding="10" ColumnDefinitions="40, *" RowDefinitions="Auto">
+                    <Grid Padding="10" ColumnDefinitions="40, *" RowDefinitions="Auto">
+                        
+                        <!-- Обработчик нажатия на всю задачу -->
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=OpenTaskCommand}"
+                                                  CommandParameter="{Binding}" />
+                        </Grid.GestureRecognizers>
 
-                    <!-- Зеленый круг выполненной задачи -->
-                    <Ellipse WidthRequest="28"
-                             HeightRequest="28"
-                             Stroke="#468966"
-                             StrokeThickness="3"
-                             Fill="#468966" />
+                       <!-- Зеленый круг выполненной задачи -->
+                        <Ellipse WidthRequest="28"
+                         HeightRequest="28"
+                         Stroke="#468966"
+                         StrokeThickness="6"
+                         Fill="White" />
 
-                    <VerticalStackLayout Grid.Column="1" Spacing="4" Padding="12,0">
+                        <VerticalStackLayout Grid.Column="1" Spacing="4" Padding="12,0">
 
-                        <Label Text="{Binding Title}"
-                               FontSize="20"
-                               TextColor="#111" />
+                            <Label Text="{Binding Title}"
+                                   FontSize="20"
+                                   TextColor="#111" />
 
-                        <Label Text="{Binding Description}"
-                               FontSize="14"
-                               TextColor="#777777" />
+                            <Label Text="{Binding Description}"
+                                   FontSize="14"
+                                   TextColor="#777777" />
 
-                        <Label Text="{Binding DateDisplay}"
-                               FontSize="13"
-                               HorizontalOptions="Start"
-                               TextColor="#468966"
-                               IsVisible="{Binding DateDisplay}" />
+                            <Label Text="{Binding DateDisplay}"
+                                   FontSize="13"
+                                   HorizontalOptions="Start"
+                                   TextColor="#468966"
+                                   IsVisible="{Binding DateDisplay}" />
 
-                    </VerticalStackLayout>
-                </Grid>
+                        </VerticalStackLayout>
+                    </Grid>
 
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
 
-    </CollectionView>
+        </CollectionView>
+
+        <!-- Popup для просмотра выполненной задачи -->
+        <popups:ViewCompletedTaskPopup 
+            x:Name="TaskPopup" />
+            
+    </Grid>
 
 </ContentPage>

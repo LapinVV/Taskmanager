@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Course_work.Pages.EditTaskPage"
+    BackgroundColor="#FFFFFF"
+    Padding="0">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="TitleEntryBorderStyle" TargetType="Border">
+                <Setter Property="Stroke" Value="#CCCCCC" />
+                <Setter Property="StrokeThickness" Value="2" />
+
+                <Style.Triggers>
+
+                    <DataTrigger TargetType="Border"
+                                 Binding="{Binding SelectedPriority}"
+                                 Value="HighUrgent">
+                        <Setter Property="Stroke" Value="#d55043" />
+                    </DataTrigger>
+
+                    <DataTrigger TargetType="Border"
+                                 Binding="{Binding SelectedPriority}"
+                                 Value="High">
+                        <Setter Property="Stroke" Value="#FFF09515" />
+                    </DataTrigger>
+
+                    <DataTrigger TargetType="Border"
+                                 Binding="{Binding SelectedPriority}"
+                                 Value="Urgent">
+                        <Setter Property="Stroke" Value="#FFBD59" />
+                    </DataTrigger>
+
+                    <DataTrigger TargetType="Border"
+                                 Binding="{Binding SelectedPriority}"
+                                 Value="Low">
+                        <Setter Property="Stroke" Value="#999999" />
+                    </DataTrigger>
+
+                    <DataTrigger TargetType="Border"
+                                 Binding="{Binding SelectedPriority}"
+                                 Value="{x:Null}">
+                        <Setter Property="Stroke" Value="#CCCCCC" />
+                    </DataTrigger>
+
+                </Style.Triggers>
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Header -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Padding="0,10">
+            <Label Text="Редактировать задачу"
+                   FontSize="28"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   TextColor="Black"/>
+            <Button Grid.Column="1"
+                    BackgroundColor="Transparent"
+                    Padding="0"
+                    Margin="10,0,10,0"
+                    Clicked="OnCloseTapped">
+                <Button.ImageSource>
+                    <FontImageSource Glyph="✕" Color="#777777" Size="28"/>
+                </Button.ImageSource>
+            </Button>
+        </Grid>
+
+        <!-- Scroll Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="12" Padding="20">
+
+                <Border BackgroundColor="#ffffff"
+                        Style="{StaticResource TitleEntryBorderStyle}"
+                        StrokeShape="RoundRectangle 8"
+                        Padding="0"
+                        HeightRequest="55">
+
+                    <Entry x:Name="TitleEntry"
+                           Placeholder="Введите название:"
+                           FontSize="20"
+                           BackgroundColor="Transparent"
+                           TextColor="Black"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="Center"
+                           Margin="12,0"/>
+                </Border>
+
+                <Label x:Name="PickedDateLabel"
+                       Text=""
+                       FontSize="14"
+                       TextColor="Black"
+                       IsVisible="False"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center" />
+
+                <Border BackgroundColor="#f5f5f5"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 8"
+                        HeightRequest="130">
+                    <Editor x:Name="DescriptionEditor"
+                            Placeholder="Добавьте описание..."
+                            FontSize="18"
+                            BackgroundColor="Transparent"
+                            TextColor="Black"
+                            Margin="12,5"
+                            AutoSize="TextChanges"/>
+                </Border>
+
+                <!-- Buttons Row -->
+                <Grid ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Text="Время"
+                            Grid.Column="0"
+                            x:Name="DateButton"
+                            BackgroundColor="#ffbd59"
+                            TextColor="White"
+                            CornerRadius="15"
+                            HeightRequest="50"
+                            Clicked="OnDateClicked"/>
+
+                    <Button Text="Приоритет"
+                            Grid.Column="1"
+                            x:Name="PriorityButton"
+                            BackgroundColor="#d55043"
+                            TextColor="White"
+                            CornerRadius="15"
+                            HeightRequest="55"
+                            Clicked="OnPriorityClicked"/>
+
+                    <Button Text="Уведомления"
+                            Grid.Column="2"
+                            x:Name="ReminderButton"
+                            BackgroundColor="#0097b2"
+                            TextColor="White"
+                            CornerRadius="15"
+                            HeightRequest="55"
+                            Clicked="OnReminderClicked"/>
+                </Grid>
+
+                <Button Text="Изменить"
+                        BackgroundColor="#468966"
+                        TextColor="White"
+                        FontSize="22"
+                        CornerRadius="20"
+                        HeightRequest="48"
+                        Margin="0,10,0,0"
+                        Clicked="OnEditTaskConfirm"/>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- POPUP OVERLAY -->
+        <Grid Grid.RowSpan="2"
+              x:Name="PopupOverlay"
+              IsVisible="False"
+              BackgroundColor="#80000000"
+              HorizontalOptions="Fill"
+              VerticalOptions="Fill"
+              Padding="0"
+              ZIndex="50">
+
+            <Grid HorizontalOptions="Center"
+                  VerticalOptions="Center"
+                  WidthRequest="320">
+
+                <!-- PRIORITY POPUP -->
+                <Border x:Name="PriorityPopup"
+                        BackgroundColor="White"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="18"
+                        IsVisible="False">
+
+                    <VerticalStackLayout Spacing="14">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Select Priority"
+                                   FontSize="20"
+                                   HorizontalOptions="FillAndExpand"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalOptions="Center"/>
+
+                            <Button Grid.Column="1"
+                                    BackgroundColor="Transparent"
+                                    Padding="0"
+                                    Clicked="OnClosePriorityPopup">
+                                <Button.ImageSource>
+                                    <FontImageSource Glyph="✕" Color="#444" Size="22"/>
+                                </Button.ImageSource>
+                            </Button>
+                        </Grid>
+
+                        <Button Text="Важно и срочно"
+                                BackgroundColor="#d55043"
+                                TextColor="White"
+                                CornerRadius="10"
+                                HeightRequest="45"
+                                Clicked="OnPrioritySelected"
+                                CommandParameter="HighUrgent"/>
+
+                        <Button Text="Важно и не срочно"
+                                BackgroundColor="#FFF09515"
+                                TextColor="White"
+                                CornerRadius="10"
+                                HeightRequest="45"
+                                Clicked="OnPrioritySelected"
+                                CommandParameter="High"/>
+
+                        <Button Text="Не важно и срочно"
+                                BackgroundColor="#FFFCCC3C"
+                                TextColor="White"
+                                CornerRadius="10"
+                                HeightRequest="45"
+                                Clicked="OnPrioritySelected"
+                                CommandParameter="Urgent"/>
+
+                        <Button Text="Не важно и не срочно"
+                                BackgroundColor="#cccccc"
+                                TextColor="Black"
+                                CornerRadius="10"
+                                HeightRequest="45"
+                                Clicked="OnPrioritySelected"
+                                CommandParameter="Low"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- DATE POPUP -->
+                <Border x:Name="DatePopupOverlay"
+                        BackgroundColor="White"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="18"
+                        IsVisible="False">
+
+                    <VerticalStackLayout Spacing="12">
+
+                        <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,4">
+                            <Label Text="Select Date"
+                                   FontSize="20"
+                                   HorizontalOptions="FillAndExpand"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalOptions="Center"/>
+                            <Button Grid.Column="1"
+                                    BackgroundColor="Transparent"
+                                    Padding="0"
+                                    Clicked="OnCloseDatePopup">
+                                <Button.ImageSource>
+                                    <FontImageSource Glyph="✕" Color="#444" Size="22"/>
+                                </Button.ImageSource>
+                            </Button>
+                        </Grid>
+
+                        <Button Text="Сегодня"
+                                BackgroundColor="#468966"
+                                TextColor="White"
+                                CornerRadius="10"
+                                HeightRequest="45"
+                                Clicked="OnSelectToday"/>
+
+                        <Button Text="Завтра"
+                                BackgroundColor="#F0AD4E"
+                                TextColor="Black"
+                                CornerRadius="10"
+                                HeightRequest="45"
+                                Clicked="OnSelectTomorrow"/>
+
+                        <Button Text="Следующая неделя"
+                                BackgroundColor="#D9534F"
+                                TextColor="White"
+                                CornerRadius="10"
+                                HeightRequest="45"
+                                Clicked="OnSelectNextWeek"/>
+
+                        <Button Text="Без срока"
+                                BackgroundColor="#BDBDBD"
+                                TextColor="Black"
+                                CornerRadius="10"
+                                HeightRequest="45"
+                                Clicked="OnSelectNoDate"/>
+
+                        <DatePicker x:Name="CustomDatePicker"
+                                    DateSelected="OnCustomDatePicked"
+                                    HorizontalOptions="Center"
+                                    WidthRequest="220"/>
+
+                        <TimePicker x:Name="CustomTimePicker"
+                                    Format="HH:mm"
+                                    PropertyChanged="OnCustomTimePropertyChanged"
+                                    HorizontalOptions="Center"
+                                    WidthRequest="220"/>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border x:Name="ReminderPopup"
+                        BackgroundColor="White"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="18"
+                        IsVisible="False">
+
+                    <VerticalStackLayout Spacing="14">
+
+                        <!-- Заголовок -->
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Напоминания"
+                                   FontSize="20"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalOptions="Center" />
+
+                            <Button Grid.Column="1"
+                                    BackgroundColor="Transparent"
+                                    Padding="0"
+                                    Clicked="OnCloseReminderPopup">
+                                <Button.ImageSource>
+                                    <FontImageSource Glyph="✕" Color="#444" Size="22"/>
+                                </Button.ImageSource>
+                            </Button>
+                        </Grid>
+
+                        <Border BackgroundColor="#f5f5f5"
+                                StrokeShape="RoundRectangle 8"
+                                Padding="12"
+                                Margin="0,0,0,10">
+                            <Label x:Name="EventDateTimeLabel"
+                                   FontSize="16"
+                                   TextColor="#333"
+                                   HorizontalOptions="Center"
+                                   Text="Событие: --.--.---- в --:--"/>
+                        </Border>
+
+                        <VerticalStackLayout Spacing="8">
+                            <!-- Не напоминать -->
+                            <Button Text="Не напоминать"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="None"/>
+
+                            <!-- Во время начала -->
+                            <Button Text="Во время начала"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="0"/>
+
+                            <!-- Стандартные интервалы -->
+                            <Button Text="За 5 минут до события"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="5"/>
+
+                            <Button Text="За 10 минут до события"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="10"/>
+
+                            <Button Text="За 15 минут до события"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="15"/>
+
+                            <Button Text="За 30 минут до события"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="30"/>
+
+                            <Button Text="За 1 час до события"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="60"/>
+
+                            <Button Text="За 1 день до события"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="1440"/>
+
+                            <Button Text="За 2 дня до события"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="2880"/>
+
+                            <Button Text="За 1 неделю до события"
+                                    BackgroundColor="#EEEEEE"
+                                    TextColor="#333"
+                                    CornerRadius="10"
+                                    HeightRequest="40"
+                                    Clicked="OnReminderPresetSelected"
+                                    CommandParameter="10080"/>
+
+                            <!-- Кнопка настроить -->
+                            <Button Text="Настроить"
+                                    BackgroundColor="#0097b2"
+                                    TextColor="White"
+                                    CornerRadius="10"
+                                    HeightRequest="45"
+                                    Margin="0,10,0,0"
+                                    Clicked="OnOpenCustomReminder"/>
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border x:Name="CustomReminderPopup"
+                        BackgroundColor="White"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="18"
+                        IsVisible="False"
+                        WidthRequest="300">
+
+                    <VerticalStackLayout Spacing="14">
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Настроить уведомление"
+                                   FontSize="20"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalOptions="Center" />
+
+                            <Button Grid.Column="1"
+                                    BackgroundColor="Transparent"
+                                    Padding="0"
+                                    Clicked="OnCloseCustomReminderPopup">
+                                <Button.ImageSource>
+                                    <FontImageSource Glyph="✕" Color="#444" Size="22"/>
+                                </Button.ImageSource>
+                            </Button>
+                        </Grid>
+
+                        <Border BackgroundColor="#f5f5f5"
+                                StrokeShape="RoundRectangle 8"
+                                Padding="12">
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="За сколько до события?"
+                                       FontSize="14"
+                                       TextColor="#333"/>
+
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                    <Entry x:Name="CustomMinutesEntry"
+                                           Placeholder="Минуты"
+                                           Keyboard="Numeric"
+                                           FontSize="16"
+                                           BackgroundColor="White"/>
+
+                                    <Picker x:Name="TimeUnitPicker"
+                                            Grid.Column="1"
+                                            WidthRequest="100"
+                                            SelectedIndexChanged="OnTimeUnitChanged">
+                                        <Picker.Items>
+                                            <x:String>минут</x:String>
+                                            <x:String>часов</x:String>
+                                            <x:String>дней</x:String>
+                                        </Picker.Items>
+                                    </Picker>
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Button Text="Сохранить"
+                                BackgroundColor="#0097b2"
+                                TextColor="White"
+                                CornerRadius="10"
+                                HeightRequest="45"
+                                Clicked="OnConfirmCustomReminder"/>
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>

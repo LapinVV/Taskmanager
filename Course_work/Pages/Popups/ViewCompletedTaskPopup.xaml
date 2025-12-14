@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Course_work.Pages.Popups.ViewCompletedTaskPopup"
+    IsVisible="False"
+    BackgroundColor="#80000000">
+
+    <Grid
+        Padding="20"
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
+
+        <Border
+            BackgroundColor="White"
+            Stroke="#DDDDDD"
+            StrokeThickness="1"
+            StrokeShape="RoundRectangle 18">
+
+            <VerticalStackLayout Spacing="16" Padding="20">
+
+                <!-- Заголовок окна -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Просмотр задачи"
+                           Grid.Column="0"
+                           FontSize="23"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           TextColor="#111" />
+
+                    <Button Grid.Column="1"
+                            BackgroundColor="Transparent"
+                            Padding="0"
+                            Clicked="OnCloseClicked">
+                        <Button.ImageSource>
+                            <FontImageSource Glyph="✕" Color="#777777" Size="24"/>
+                        </Button.ImageSource>
+                    </Button>
+                </Grid>
+
+                <Border x:Name="TitleBorder"
+                        Stroke="#CCCCCC"
+                        StrokeThickness="2"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="10">
+                    <Label x:Name="TitleReadonly"
+                           FontSize="17"
+                           TextColor="#111"/>
+                </Border>
+
+                <!-- Дата -->
+                <Label x:Name="DateTimeLabel"
+                       FontSize="15"
+                       TextColor="#444"
+                       HorizontalOptions="Center"/>
+
+                <!-- НАПОМИНАНИЕ -->
+                <Label x:Name="ReminderLabel"
+                       FontSize="15"
+                       TextColor="#444"
+                       HorizontalOptions="Center"
+                       Margin="0,5,0,15"/>
+
+                <!-- Описание -->
+                <Label x:Name="DescriptionLabel"
+                       FontSize="17"
+                       TextColor="#444"/>
+
+                <!-- КНОПКИ -->
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="7">
+                    <Button Text="   Удалить   "
+                            Grid.Column="0"
+                            FontSize="14"
+                            CornerRadius="10"
+                            BackgroundColor="#d55043"
+                            TextColor="White"
+                            Clicked="OnDeleteClicked"/>
+
+                    <Button Text=" Изменить "
+                            Grid.Column="1"
+                            FontSize="14"
+                            CornerRadius="10"
+                            BackgroundColor="#F0AD4E"
+                            TextColor="White"
+                            Clicked="OnEditClicked"/>
+
+                    <Button Text="  Вернуть  "
+                            Grid.Column="2"
+                            FontSize="14"
+                            CornerRadius="10"
+                            BackgroundColor="#0097b2"
+                            TextColor="White"
+                            Clicked="OnReturnClicked"/>
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentView>

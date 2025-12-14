@@ -54,11 +54,23 @@ build_metadata.AdditionalFiles.ManifestResourceName = Course_work.Pages.AllTasks
 build_metadata.AdditionalFiles.TargetPath = Pages/AllTasksPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Pages/AllTasksPage.xaml
 
+[/Users/vladislavlapin/Taskmanager/Course_work/Pages/EditTaskPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Course_work.Pages.EditTaskPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages/EditTaskPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages/EditTaskPage.xaml
+
 [/Users/vladislavlapin/Taskmanager/Course_work/Pages/NowTasksPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Course_work.Pages.NowTasksPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Pages/NowTasksPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Pages/NowTasksPage.xaml
+
+[/Users/vladislavlapin/Taskmanager/Course_work/Pages/Popups/ViewCompletedTaskPopup.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Course_work.Pages.Popups.ViewCompletedTaskPopup.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages/Popups/ViewCompletedTaskPopup.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages/Popups/ViewCompletedTaskPopup.xaml
 
 [/Users/vladislavlapin/Taskmanager/Course_work/Pages/Popups/ViewTaskPopup.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml

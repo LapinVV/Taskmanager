@@ -120,13 +120,18 @@ namespace Course_work.Pages
             RefreshTasks();
         }
 
-        private void OnPopupEditRequested(object? sender, TodoItem item)
-        {
-            if (item == null)
-                return;
+      private async void OnPopupEditRequested(object? sender, TodoItem item)
+{
+    if (item == null)
+        return;
 
-            DisplayAlert("Редактирование", $"Открыть редактирование для: {item.Title}", "OK");
-        }
+    // Закрываем popup перед открытием редактора
+    var popup = this.FindByName("TaskPopup") as ViewTaskPopup;
+    popup?.Hide();
+    
+    // Открываем страницу редактирования
+    await Navigation.PushAsync(new EditTaskPage(item));
+}
 
         private void OnPopupClosed(object? sender, EventArgs e)
         {

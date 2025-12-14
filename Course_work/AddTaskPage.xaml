@@ -300,7 +300,6 @@
                     </VerticalStackLayout>
                 </Border>
 
-                <!-- 🔔 REMINDER POPUP -->
                 <Border x:Name="ReminderPopup"
                         BackgroundColor="White"
                         StrokeShape="RoundRectangle 18"
@@ -434,7 +433,6 @@
                     </VerticalStackLayout>
                 </Border>
 
-                <!-- 🛠 CUSTOM REMINDER POPUP -->
                 <Border x:Name="CustomReminderPopup"
                         BackgroundColor="White"
                         StrokeShape="RoundRectangle 18"
@@ -475,7 +473,6 @@
                                            FontSize="16"
                                            BackgroundColor="White"/>
 
-                                    <!-- ⭐ ИСПРАВЛЕННАЯ СТРОКА: добавлен SelectedIndexChanged -->
                                     <Picker x:Name="TimeUnitPicker"
                                             Grid.Column="1"
                                             WidthRequest="100"

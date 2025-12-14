@@ -1,10 +1,8 @@
 using Course_work.Models;
 using Course_work.Pages.Popups;
 using System.Windows.Input;
-using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Controls.Shapes;
-using Microsoft.Maui.Controls;
-using System.Threading.Tasks;
+
 
 namespace Course_work.Pages
 {
@@ -191,12 +189,17 @@ namespace Course_work.Pages
             RefreshTasks();
         }
 
-        private void OnPopupEditRequested(object? sender, TodoItem item)
-        {
-            if (item == null)
-                return;
+       private async void OnPopupEditRequested(object? sender, TodoItem item)
+{
+    if (item == null)
+        return;
 
-            DisplayAlert("Редактирование", $"Открываем редактор задачи: {item.Title}", "OK");
-        }
+    // Закрываем popup перед открытием редактора
+    if (this.FindByName("TaskPopup") is ViewTaskPopup popup)
+        popup.Hide();
+    
+    // Открываем страницу редактирования
+    await Navigation.PushAsync(new EditTaskPage(item));
+}
     }
 }
